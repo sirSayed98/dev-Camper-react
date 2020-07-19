@@ -2,10 +2,15 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken'
 
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    USER_LOADED,
+    AUTH_ERROR
 } from '../types';
 
 
@@ -40,8 +45,53 @@ const AuthState = props => {
                 payload: error
             });
         }
-        
+
     }
+    
+    //load user
+    const loadUser = async () => {
+        if (localStorage.token) {
+            setAuthToken(localStorage.token);
+        }
+        try {
+            const res = await axios.get('http://localhost:5000/api/v1/auth/me');
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: AUTH_ERROR
+            })
+        }
+    }
+    //login user
+    const Login = async formData => {
+        const config = {
+            headers: {
+                method: 'Post',
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.post("http://localhost:5000/api/v1/auth/login", formData, config)
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
+            loadUser();
+        } catch (error) {
+            console.log(error);
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: error
+            });
+        }
+
+
+
+}
+
 
 return (
     <AuthContext.Provider
@@ -51,7 +101,8 @@ return (
             error: state.error,
             loading: state.loading,
             user: state.user,
-            Register
+            Register,
+            Login
         }}
     >
         {props.children}

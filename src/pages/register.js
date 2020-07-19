@@ -27,7 +27,7 @@ const register = (props) => {
     const setRole = (ro) => setUser({ ...user, role: ro });
     const onSubmit = e => {
         e.preventDefault();
-        if (name === '' || email === '' || password === '' || name === '' || password2 === '')
+        if (name === '' || email === '' || password === '' || password2 === '')
             console.log(" fill all");
         else if (password !== password2) {
             console.log("invalid password ")
