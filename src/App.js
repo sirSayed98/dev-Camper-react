@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from "./Components/layout/Navbar";
+import home from "./pages/home"
 import './App.css';
 import './bootstrap.css'
 const App = () => {
@@ -8,13 +9,11 @@ const App = () => {
     <Fragment>
       <Router>
         <Navbar />
+        <Switch>
+          <Route exact path="/" component={home} />
+        </Switch>
       </Router>
-      <div class="container">
-        {/* <Switch>
-          <Route exact path="/" component={Home}/>
-        </Switch> */}
-        <p>Hello</p>
-      </div>
+
     </Fragment>
   );
 }
