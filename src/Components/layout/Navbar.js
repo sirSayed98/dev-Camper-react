@@ -22,7 +22,7 @@ const Navbar = () =>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" href="register.html"
+                                <Link className="nav-link" to="/register"
                                 ><i className="fas fa-user-plus"></i> Register </Link>
                             </li>
                             <li className="nav-item d-none d-sm-block">
