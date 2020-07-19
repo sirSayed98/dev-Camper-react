@@ -17,7 +17,7 @@ const Navbar = () =>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" href="login.html"
+                                <Link className="nav-link" to="/login"
                                 ><i className="fas fa-sign-in-alt"></i> Login
                                 </Link>
                             </li>
