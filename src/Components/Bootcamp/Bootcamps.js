@@ -5,14 +5,14 @@ import Bootcamp from './Bootcamp'
 
 const Bootcamps = () => {
     return (
-        <section class="browse my-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mt-5">
+        <section className="browse my-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-4 mt-5">
                         <SearchBylocation />
                         <Filter />
                     </div>
-                    <div class="col-md-8 mt-5">
+                    <div className="col-md-8 mt-5">
                         <Bootcamp />
                     </div>
                 </div>

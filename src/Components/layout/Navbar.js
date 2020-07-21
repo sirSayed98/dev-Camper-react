@@ -1,10 +1,10 @@
-import React, { Fragment, useContext,useEffect } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 
 import { Link } from "react-router-dom"
-import authContext  from '../../context/auth/authContext'
+import authContext from '../../context/auth/authContext'
 const Navbar = (props) => {
     const AuthContext = useContext(authContext);
-    const { isAuthenticated,loadUser,user} = AuthContext;
+    const { isAuthenticated, loadUser, user } = AuthContext;
 
     useEffect(() => {
         loadUser();
@@ -24,38 +24,38 @@ const Navbar = (props) => {
             </li>
         </Fragment>
     )
-    const authUser = (name)  => {
-        return (
-            <Fragment>
-                <li className="nav-item dropdown">
-                    <Link
-                        className="nav-link dropdown-toggle"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
+    const authUser = (
+        <Fragment>
+            <li className="nav-item dropdown">
+                <a
+                    className="nav-link dropdown-toggle"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    href="/"
+                >
+                    <i className="fas fa-user"></i> {(!user) ? "Account" : user.data.name}
+                </a>
+                <div className="dropdown-menu">
+                    <a className="dropdown-item" href="manage-bootcamp.html"
+                    >Manage Bootcamp</a
                     >
-                        <i className="fas fa-user"></i> {name}
-                    </Link>
-                    <div className="dropdown-menu">
-                        <a className="dropdown-item" href="manage-bootcamp.html"
-                        >Manage Bootcamp</a
-                        >
-                        <a className="dropdown-item" href="manage-reviews.html"
-                        >Manage Reviews</a
-                        >
-                        <a className="dropdown-item" href="manage-account.html"
-                        >Manage Account</a
-                        >
-                        <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="login.html"
-                        ><i className="fas fa-sign-out-alt"></i> Logout</a
-                        >
-                    </div>
-                </li>
-            </Fragment>
-        )
-    };
-    let name = (!user) ? "Account" : user.data.name;
+                    <a className="dropdown-item" href="manage-reviews.html"
+                    >Manage Reviews</a
+                    >
+                    <a className="dropdown-item" href="manage-account.html"
+                    >Manage Account</a
+                    >
+                    <div className="dropdown-divider"></div>
+                    <a className="dropdown-item" href="login.html"
+                    ><i className="fas fa-sign-out-alt"></i> Logout</a
+                    >
+                </div>
+            </li>
+        </Fragment>
+    )
+
+
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
             <div className="container">
@@ -71,12 +71,12 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
 
-                        {!isAuthenticated ? guest : authUser(name)}
+                        {!isAuthenticated ? guest : authUser}
                         <li className="nav-item d-none d-sm-block">
                             <Link className="nav-link" to="#"></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/Bootcamps">Browse Bootcamps</Link>
+                            <Link className="nav-link" to="/Bootcamps"> | Browse Bootcamps</Link>
                         </li>
                     </ul>
                 </div>

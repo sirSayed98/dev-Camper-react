@@ -51,7 +51,7 @@ const login = (props) => {
 								</p>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-group">
-                                        <label for="email">Email Address</label>
+                                        <label htmlFor="email">Email Address</label>
                                         <input
                                             type="email"
                                             name="email"
@@ -62,7 +62,7 @@ const login = (props) => {
                                         />
                                     </div>
                                     <div className="form-group mb-4">
-                                        <label for="password">Password</label>
+                                        <label htmlFor="password">Password</label>
                                         <input
                                             type="password"
                                             name="password"
