@@ -6,7 +6,7 @@ import login from "./pages/login";
 import register from "./pages/register";
 import resetPassword from "./pages/resetPassword";
 import AuthState from "./context/auth/authState";
-
+import Bootcamps from './Components/Bootcamp/Bootcamps'
 
 import './App.css';
 import './bootstrap.css'
@@ -21,6 +21,7 @@ const App = () => {
             <Route exact path="/login" component={login} />
             <Route exact path="/reset-password" component={resetPassword} />
             <Route exact path="/register" component={register} />
+            <Route exact path="/Bootcamps" component={Bootcamps} />
           </Switch>
         </Router>
       </Fragment>

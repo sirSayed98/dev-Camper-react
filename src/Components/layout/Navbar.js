@@ -4,11 +4,10 @@ import { Link } from "react-router-dom"
 import authContext  from '../../context/auth/authContext'
 const Navbar = (props) => {
     const AuthContext = useContext(authContext);
-    const { isAuthenticated,loadUser} = AuthContext;
+    const { isAuthenticated,loadUser,user} = AuthContext;
 
     useEffect(() => {
         loadUser();
-        console.log(AuthContext)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -25,35 +24,38 @@ const Navbar = (props) => {
             </li>
         </Fragment>
     )
-    const authUser = (
-        <Fragment>
-            <li class="nav-item dropdown">
-                <Link
-                    class="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                >
-                    <i class="fas fa-user"></i> Account
-                </Link>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="manage-bootcamp.html"
-                    >Manage Bootcamp</a
+    const authUser = (name)  => {
+        return (
+            <Fragment>
+                <li className="nav-item dropdown">
+                    <Link
+                        className="nav-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
                     >
-                    <a class="dropdown-item" href="manage-reviews.html"
-                    >Manage Reviews</a
-                    >
-                    <a class="dropdown-item" href="manage-account.html"
-                    >Manage Account</a
-                    >
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html"
-                    ><i class="fas fa-sign-out-alt"></i> Logout</a
-                    >
-                </div>
-            </li>
-        </Fragment>
-    )
+                        <i className="fas fa-user"></i> {name}
+                    </Link>
+                    <div className="dropdown-menu">
+                        <a className="dropdown-item" href="manage-bootcamp.html"
+                        >Manage Bootcamp</a
+                        >
+                        <a className="dropdown-item" href="manage-reviews.html"
+                        >Manage Reviews</a
+                        >
+                        <a className="dropdown-item" href="manage-account.html"
+                        >Manage Account</a
+                        >
+                        <div className="dropdown-divider"></div>
+                        <a className="dropdown-item" href="login.html"
+                        ><i className="fas fa-sign-out-alt"></i> Logout</a
+                        >
+                    </div>
+                </li>
+            </Fragment>
+        )
+    };
+    let name = (!user) ? "Account" : user.data.name;
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
             <div className="container">
@@ -69,14 +71,12 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
 
-                        {!isAuthenticated ? guest : authUser}
-
-
+                        {!isAuthenticated ? guest : authUser(name)}
                         <li className="nav-item d-none d-sm-block">
                             <Link className="nav-link" to="#"></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/bootcamps">Browse Bootcamps</Link>
+                            <Link className="nav-link" to="/Bootcamps">Browse Bootcamps</Link>
                         </li>
                     </ul>
                 </div>
