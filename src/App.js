@@ -6,7 +6,7 @@ import login from "./pages/login";
 import register from "./pages/register";
 import resetPassword from "./pages/resetPassword";
 import AuthState from "./context/auth/authState";
-// import Alerts from './Components/layout/Alert'
+
 
 import './App.css';
 import './bootstrap.css'

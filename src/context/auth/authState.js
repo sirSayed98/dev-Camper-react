@@ -45,7 +45,6 @@ const AuthState = props => {
                 payload: error
             });
         }
-
     }
     
     //load user
@@ -81,15 +80,11 @@ const AuthState = props => {
             });
             loadUser();
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: LOGIN_FAIL,
                 payload: error
             });
         }
-
-
-
 }
 
 
@@ -99,10 +94,10 @@ return (
             token: state.token,
             isAuthenticated: state.isAuthenticated,
             error: state.error,
-            loading: state.loading,
             user: state.user,
             Register,
-            Login
+            Login,
+            loadUser
         }}
     >
         {props.children}
