@@ -2,9 +2,16 @@ import React, { Fragment, useContext, useEffect } from 'react'
 
 import { Link } from "react-router-dom"
 import authContext from '../../context/auth/authContext'
+import bootcampContext from '../../context/bootcamp/bootcampContext'
 const Navbar = (props) => {
     const AuthContext = useContext(authContext);
-    const { isAuthenticated, loadUser, user } = AuthContext;
+    const BootcampContext = useContext(bootcampContext);
+
+    const { bootcamps } = BootcampContext;
+    const { isAuthenticated, loadUser, user, logout } = AuthContext;
+    const onLogout = () => {
+        logout();
+    }
 
     useEffect(() => {
         loadUser();
@@ -36,11 +43,8 @@ const Navbar = (props) => {
                     <i className="fas fa-user"></i> {(!user) ? "Account" : user.data.name}
                 </a>
                 <div className="dropdown-menu">
-                    <Link className="dropdown-item" to="/create-Bootcamp"
-                    >Create Bootcamp</Link>
-                    <a className="dropdown-item" href="manage-bootcamp.html"
-                    >Manage Bootcamp</a
-                    >
+                    {bootcamps === null ? <Link className="dropdown-item" to="/create-Bootcamp">Create Bootcamp</Link> : <Link className="dropdown-item" to="/manage-bootcamp">Manage Bootcamp</Link>}
+
                     <a className="dropdown-item" href="manage-reviews.html"
                     >Manage Reviews</a
                     >
@@ -48,9 +52,7 @@ const Navbar = (props) => {
                     >Manage Account</a
                     >
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="login.html"
-                    ><i className="fas fa-sign-out-alt"></i> Logout</a
-                    >
+                    <Link className="dropdown-item" onClick={onLogout} to="/"><i className="fas fa-sign-out-alt"></i> Logout</Link>
                 </div>
             </li>
         </Fragment>
@@ -79,6 +81,7 @@ const Navbar = (props) => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/Bootcamps"> | Browse Bootcamps</Link>
                         </li>
+
                     </ul>
                 </div>
             </div>
