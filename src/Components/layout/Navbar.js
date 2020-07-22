@@ -32,11 +32,12 @@ const Navbar = (props) => {
                     id="navbarDropdown"
                     role="button"
                     data-toggle="dropdown"
-                    href="/"
-                >
+                    href="/">
                     <i className="fas fa-user"></i> {(!user) ? "Account" : user.data.name}
                 </a>
                 <div className="dropdown-menu">
+                    <Link className="dropdown-item" to="/create-Bootcamp"
+                    >Create Bootcamp</Link>
                     <a className="dropdown-item" href="manage-bootcamp.html"
                     >Manage Bootcamp</a
                     >
