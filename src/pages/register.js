@@ -2,12 +2,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import AuthContext from '../context/auth/authContext';
 import React, { useContext, useEffect, useState } from 'react'
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 const register = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const authContext = useContext(AuthContext);
 
     const { Register, error, isAuthenticated } = authContext;
-
+    const MySwal = withReactContent(Swal);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         if (isAuthenticated)
@@ -36,7 +40,15 @@ const register = (props) => {
             Register({
                 name, email, password, role
             })
+            RegisterDone();
+
         }
+    }
+    function RegisterDone() {
+        MySwal.fire(
+            `Welcome ${name}`,
+            'Discover our courses',
+            'success')
     }
 
     return (
