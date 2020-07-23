@@ -11,8 +11,11 @@ const login = (props) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     let authContext = useContext(AuthContext);
-    let { Login, error, isAuthenticated } = authContext;
+    let { Login, error, isAuthenticated} = authContext;
     const MySwal = withReactContent(Swal)
+
+
+
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -23,7 +26,7 @@ const login = (props) => {
         if (error != null)
             loginFail()
         //eslint-disable-next-line
-    }, [error, isAuthenticated, props.history])
+    }, [error,props.history,isAuthenticated])
 
     function loginFail() {
         if (error.error === 'Invalid credentials') {

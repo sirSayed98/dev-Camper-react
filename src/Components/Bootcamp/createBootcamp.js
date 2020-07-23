@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext, useState,useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import MultiSelect from "react-multi-select-component";
 
 import bootcampContext from '../../context/bootcamp/bootcampContext'
@@ -36,21 +36,24 @@ const createBootcamp = (props) => {
         user: 1
     });
     let [selected, setSelected] = useState([]);
-    
-    const { Create,bootcamps } = BootcampContext;
+
+    const { Create, bootcamps } = BootcampContext;
     useEffect(() => {
-        
-       if(bootcamps!=null)
-       createBootcampDone()
-        
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        if (bootcamps != null) {
+            createBootcampDone()
+            props.history.push('/');
+        }
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bootcamps])
 
     function createBootcampDone() {
         MySwal.fire(
             `Bootcamp ${name} created Successfully`,
             'Add Courses now !',
-            'success')}
+            'success')
+    }
 
 
     let { name, description, website, phone, email, address, careers, housing, jobAssistance, jobGuarantee, acceptGi } = bootcamp;
