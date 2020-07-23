@@ -6,3 +6,4 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CREATE_BOOTCAMP = 'CREATE_BOOTCAMP';
+export const LOAD_BOOTCAMP = 'LOAD_BOOTCAMP';

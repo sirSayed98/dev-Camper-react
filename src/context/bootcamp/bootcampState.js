@@ -5,7 +5,8 @@ import bootcampReducer from './bootcampReducer';
 
 
 import {
- CREATE_BOOTCAMP
+ CREATE_BOOTCAMP,
+ LOAD_BOOTCAMP
 } from '../types';
 
 
@@ -35,12 +36,24 @@ const BootCampState = props => {
         }
     }
     
+    const loadBootcamp = async ()=> {
+        try {
+            const res = await axios.get("http://localhost:5000/api/v1/bootcamps/myBootcamp");
+            dispatch({
+                type: LOAD_BOOTCAMP,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
 
 return (
     <bootcampContext.Provider
         value={{
             bootcamps: state.bootcamps,
-            Create
+            Create,
+            loadBootcamp
         }}
     >
         {props.children}

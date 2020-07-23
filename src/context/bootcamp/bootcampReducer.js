@@ -1,17 +1,18 @@
 import {
-    CREATE_BOOTCAMP
+    CREATE_BOOTCAMP,
+    LOAD_BOOTCAMP
 } from '../types';
 
 export default (state, action) => {
 
     switch (action.type) {
         case CREATE_BOOTCAMP:
+        case LOAD_BOOTCAMP:
             return {
                 ...state,
-                isAuthenticated: true,
-                loading: false,
-                Bootcamps: action.payload
+                bootcamps: action.payload
             };
+
         default:
             return state;
     }

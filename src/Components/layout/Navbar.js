@@ -7,16 +7,20 @@ const Navbar = (props) => {
     const AuthContext = useContext(authContext);
     const BootcampContext = useContext(bootcampContext);
 
-    const { bootcamps } = BootcampContext;
-    const { isAuthenticated, loadUser, user, logout } = AuthContext;
+    let { bootcamps, loadBootcamp } = BootcampContext;
+    let { isAuthenticated, user, logout } = AuthContext;
+
     const onLogout = () => {
         logout();
     }
 
     useEffect(() => {
-        loadUser();
+        if (user != null) {
+            if (user.data.role === 'publisher'&&bootcamps==null)
+                loadBootcamp();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [user])
 
     const guest = (
         <Fragment>
@@ -43,7 +47,11 @@ const Navbar = (props) => {
                     <i className="fas fa-user"></i> {(!user) ? "Account" : user.data.name}
                 </a>
                 <div className="dropdown-menu">
-                    {bootcamps === null ? <Link className="dropdown-item" to="/create-Bootcamp">Create Bootcamp</Link> : <Link className="dropdown-item" to="/manage-bootcamp">Manage Bootcamp</Link>}
+                    {
+                        (bootcamps === null) ?
+                            <Link className="dropdown-item" to="/create-Bootcamp">Create Bootcamp</Link>
+                            : <Link className="dropdown-item" to="/manage-bootcamp">Manage Bootcamp</Link>
+                    }
 
                     <a className="dropdown-item" href="manage-reviews.html"
                     >Manage Reviews</a
