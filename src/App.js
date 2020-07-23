@@ -9,6 +9,7 @@ import AuthState from "./context/auth/authState";
 import BootcampState from './context/bootcamp/bootcampState'
 import Bootcamps from './Components/Bootcamp/Bootcamps'
 import createBootcamp from './Components/Bootcamp/createBootcamp'
+import manageBootcamp from './Components/Bootcamp/manageBootcamp'
 import PrivateRoute from "./routing/privateRoute"
 
 import './App.css';
@@ -21,7 +22,8 @@ const App = () => {
           <Router>
             <Navbar />
             <Switch>
-              <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
+              <Route exact path="/create-Bootcamp" component={createBootcamp} />
+              <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
               <Route exact path="/" component={home} />
               <Route exact path="/login" component={login} />
               <Route exact path="/reset-password" component={resetPassword} />

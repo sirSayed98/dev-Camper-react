@@ -14,9 +14,6 @@ const login = (props) => {
     let { Login, error, isAuthenticated} = authContext;
     const MySwal = withReactContent(Swal)
 
-
-
-
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         if (isAuthenticated) {
