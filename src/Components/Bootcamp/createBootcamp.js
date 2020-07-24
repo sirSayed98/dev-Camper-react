@@ -37,9 +37,10 @@ const createBootcamp = (props) => {
     });
     let [selected, setSelected] = useState([]);
 
-    const { Create, bootcamps } = BootcampContext;
+    const { Create, bootcamps} = BootcampContext;
     useEffect(() => {
         if (bootcamps != null) {
+
             createBootcampDone()
             props.history.push('/');
         }
