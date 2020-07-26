@@ -57,8 +57,9 @@ const manageBootcamp = () => {
                                 <input type="submit" className="btn btn-light btn-block" value="Upload Image" />
                             </form>
                             <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link>
-                            <Link href="/manage-courses" className="btn btn-secondary btn-block">Manage Courses</Link>
-                            <Link href="/remove-bootcamp" className="btn btn-danger btn-block">Remove Bootcamp</Link>
+                            {(bootcamps.data.courses) ?<Link href="/manage-courses" className="btn btn-secondary btn-block">Manage Courses</Link>:null}
+                            <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
+                            <Link to="/remove-bootcamp" className="btn btn-danger btn-block">Remove Bootcamp</Link>
                             
                         </div>
                     </div>

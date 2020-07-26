@@ -12,6 +12,7 @@ import createBootcamp from './Components/Bootcamp/createBootcamp'
 import singleBootcamp from './Components/Bootcamp/singleBootcamp'
 import manageBootcamp from './Components/Bootcamp/manageBootcamp'
 import PrivateRoute from "./routing/privateRoute"
+import addCourse from './Components/Courses/addCourse'
 
 import './App.css';
 import './bootstrap.css'
@@ -24,6 +25,7 @@ const App = () => {
             <Navbar />
             <Switch>
               <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
+              <PrivateRoute exact path="/add-course" component={addCourse} />
               <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
               <Route exact path="/bootcamp/:bootcampId"   component={singleBootcamp}/>
               <Route exact path="/" component={home} />
