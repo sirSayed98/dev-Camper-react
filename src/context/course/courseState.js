@@ -5,21 +5,25 @@ import courseReducer from './courseReducer';
 
 
 import {
- CREATE_COURSE,
- RESET
+    CREATE_COURSE,
+    RESET,
+    EDIT_COURSE,
+    GET_COURSE
 } from '../types';
 
 
 const CourseState = props => {
     const initialState = {
-        courses:[],
-        create_successful:false
+        courses: [],
+        create_successful: false,
+        currentCourse: null,
+        edit_successful: false
     };
     const [state, dispatch] = useReducer(courseReducer, initialState);
 
-    //register user
 
-    const createCourse = async (formData,bootcampID) => {
+
+    const createCourse = async (formData, bootcampID) => {
         const config = {
             headers: {
                 method: 'Post',
@@ -36,25 +40,58 @@ const CourseState = props => {
             console.log(error.response.data)
         }
     }
-    const restFLags =()=>{
+    const restFLags = () => {
         dispatch({
             type: RESET
         });
     }
 
+    const editCourse = async (formData, courseID) => {
+        const config = {
+            headers: {
+                method: 'Post',
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.put(`http://localhost:5000/api/v1/courses/${courseID}`, formData, config);
+            dispatch({
+                type: EDIT_COURSE,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
 
+    const getCourse = async (courseID) => {
 
-return (
-    <courseContext.Provider
-        value={{
-            courses:state.courses,
-            create_successful:state.create_successful,
-            createCourse,
-            restFLags
-        }}
-    >
-        {props.children}
-    </courseContext.Provider>
-);
+        try {
+            const res = await axios.get(`http://localhost:5000/api/v1/courses/${courseID}`);
+            dispatch({
+                type: GET_COURSE,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    return (
+        <courseContext.Provider
+            value={{
+                courses: state.courses,
+                create_successful: state.create_successful,
+                createCourse,
+                restFLags,
+                editCourse,
+                edit_successful: state.edit_successful,
+                getCourse,
+                currentCourse: state.currentCourse
+            }}
+        >
+            {props.children}
+        </courseContext.Provider>
+    );
 };
 export default CourseState;

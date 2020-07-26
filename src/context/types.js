@@ -8,4 +8,6 @@ export const LOGOUT = 'LOGOUT';
 export const CREATE_BOOTCAMP = 'CREATE_BOOTCAMP';
 export const LOAD_BOOTCAMP = 'LOAD_BOOTCAMP';
 export const  CREATE_COURSE = 'CREATE_COURSE';
+export const  EDIT_COURSE = 'EDIT_COURSE';
+export const  GET_COURSE = 'GET_COURSE';
 export const  RESET = 'REST';
