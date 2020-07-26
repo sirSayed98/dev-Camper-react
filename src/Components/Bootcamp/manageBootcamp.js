@@ -11,7 +11,7 @@ const manageBootcamp = () => {
         if (bootcamps == null) {
             loadBootcamp();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bootcamps])
 
     return (
@@ -29,15 +29,15 @@ const manageBootcamp = () => {
                                     <div className="col-md-8">
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                <Link to={`/bootcamp/${bootcamps.data.id}`}>{bootcamps.data.name ? bootcamps.data.name:"BootCamp"} Bootcamp
-													<span className="float-right badge badge-success">{bootcamps.data.averageRating ? bootcamps.data.averageRating:"Not rated yet"}</span></Link>
+                                                <Link to={`/bootcamp/${bootcamps.data.id}`}>{bootcamps.data.name ? bootcamps.data.name : "BootCamp"} Bootcamp
+													<span className="float-right badge badge-success">{bootcamps.data.averageRating ? bootcamps.data.averageRating : "Not rated yet"}</span></Link>
                                             </h5>
-                                            <span className="badge badge-dark mb-2">{bootcamps.data.city ? bootcamps.data.city:" "},{bootcamps.data.country ? bootcamps.data.country:"EG"}</span>
+                                            <span className="badge badge-dark mb-2">{bootcamps.data.city ? bootcamps.data.city : " "},{bootcamps.data.country ? bootcamps.data.country : "EG"}</span>
                                             <p className="card-text">
-                                              { 
-                                              bootcamps.data.careers ? bootcamps.data.careers.join('-'):"other careers" 
-                                              }
-											</p>
+                                                {
+                                                    bootcamps.data.careers ? bootcamps.data.careers.join('-') : "other careers"
+                                                }
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -57,10 +57,13 @@ const manageBootcamp = () => {
                                 <input type="submit" className="btn btn-light btn-block" value="Upload Image" />
                             </form>
                             <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link>
-                            {(bootcamps.data.courses) ?<Link href="/manage-courses" className="btn btn-secondary btn-block">Manage Courses</Link>:null}
+                            {(bootcamps.data.courses.lenght !== 0) ? <Link to={{
+                                pathname:'/manage-courses',
+                                data:{bootcamps}
+                            }}  className="btn btn-secondary btn-block">Manage Courses</Link> : null}
                             <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
                             <Link to="/remove-bootcamp" className="btn btn-danger btn-block">Remove Bootcamp</Link>
-                            
+
                         </div>
                     </div>
                 </div>
