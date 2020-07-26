@@ -74,7 +74,6 @@ const createBootcamp = (props) => {
 
 
         bootcamp.user = authContext.user.data._id
-        console.log(bootcamp)
         Create({
             name, description, website, phone, email, address, careers, housing, jobAssistance, jobGuarantee, acceptGi,
         })

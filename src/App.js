@@ -7,6 +7,7 @@ import register from "./pages/register";
 import resetPassword from "./pages/resetPassword";
 import AuthState from "./context/auth/authState";
 import BootcampState from './context/bootcamp/bootcampState'
+import CourseState from './context/course/courseState'
 import Bootcamps from './Components/Bootcamp/Bootcamps'
 import createBootcamp from './Components/Bootcamp/createBootcamp'
 import singleBootcamp from './Components/Bootcamp/singleBootcamp'
@@ -20,22 +21,24 @@ const App = () => {
   return (
     <AuthState>
       <BootcampState>
-        <Fragment>
-          <Router>
-            <Navbar />
-            <Switch>
-              <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
-              <PrivateRoute exact path="/add-course" component={addCourse} />
-              <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
-              <Route exact path="/bootcamp/:bootcampId"   component={singleBootcamp}/>
-              <Route exact path="/" component={home} />
-              <Route exact path="/login" component={login} />
-              <Route exact path="/reset-password" component={resetPassword} />
-              <Route exact path="/register" component={register} />
-              <Route exact path="/Bootcamps" component={Bootcamps} />
-            </Switch>
-          </Router>
-        </Fragment>
+        <CourseState>
+          <Fragment>
+            <Router>
+              <Navbar />
+              <Switch>
+                <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
+                <PrivateRoute exact path="/add-course" component={addCourse} />
+                <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
+                <Route exact path="/bootcamp/:bootcampId" component={singleBootcamp} />
+                <Route exact path="/" component={home} />
+                <Route exact path="/login" component={login} />
+                <Route exact path="/reset-password" component={resetPassword} />
+                <Route exact path="/register" component={register} />
+                <Route exact path="/Bootcamps" component={Bootcamps} />
+              </Switch>
+            </Router>
+          </Fragment>
+        </CourseState>
       </BootcampState>
     </AuthState>
   );
