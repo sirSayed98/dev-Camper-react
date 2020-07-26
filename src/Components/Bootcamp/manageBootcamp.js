@@ -58,9 +58,9 @@ const manageBootcamp = () => {
                             </form>
                             <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link>
                             {(bootcamps.data.courses.lenght !== 0) ? <Link to={{
-                                pathname:'/manage-courses',
-                                data:{bootcamps}
-                            }}  className="btn btn-secondary btn-block">Manage Courses</Link> : null}
+                                pathname: '/manage-courses',
+                                data: { bootcamps }
+                            }} className="btn btn-secondary btn-block">Manage Courses</Link> : null}
                             <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
                             <Link to="/remove-bootcamp" className="btn btn-danger btn-block">Remove Bootcamp</Link>
 

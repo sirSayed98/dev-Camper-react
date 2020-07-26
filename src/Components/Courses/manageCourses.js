@@ -8,13 +8,9 @@ const manageCourses = (props) => {
     const BootcampContext = useContext(bootcampContext);
     const { bootcamps, loadBootcamp } = BootcampContext;
     useEffect(() => {
-        if (bootcamps == null) {
-            loadBootcamp();
-
-        }
-        console.log(bootcamps);
+        loadBootcamp();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bootcamps])
+    }, [])
 
     //let courses = props.location.data.bootcamps.data.courses;
     //let Bootcamp = props.location.data.bootcamps.data;
