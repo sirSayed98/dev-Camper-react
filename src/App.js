@@ -5,6 +5,7 @@ import home from "./pages/home";
 import login from "./pages/login";
 import register from "./pages/register";
 import resetPassword from "./Components/account/resetPassword";
+import updatePassword from "./Components/account/updatePassword";
 import AuthState from "./context/auth/authState";
 import BootcampState from './context/bootcamp/bootcampState'
 import CourseState from './context/course/courseState'
@@ -39,6 +40,7 @@ const App = () => {
                 <Route exact path="/" component={home} />
                 <Route exact path="/login" component={login} />
                 <PrivateRoute exact path="/reset-password" component={resetPassword} />
+                <PrivateRoute exact path="/update-Password" component={updatePassword} />
                 <PrivateRoute exact path="/manage-Account" component={manageAccount} />
                 <Route exact path="/register" component={register} />
                 <Route exact path="/Bootcamps" component={Bootcamps} />
