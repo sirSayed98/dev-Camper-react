@@ -12,3 +12,4 @@ export const  EDIT_COURSE = 'EDIT_COURSE';
 export const  GET_COURSE = 'GET_COURSE';
 export const  RESET = 'REST';
 export const  DELETE_COURSE = 'DELETE_COURSE';
+export const  EDIT_USER = 'EDIT_USER';

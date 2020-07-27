@@ -11,18 +11,31 @@ import withReactContent from 'sweetalert2-react-content'
 
 const manageAccount = () => {
     const AuthContext = useContext(authContext);
-    const { user } = AuthContext;
+    const MySwal = withReactContent(Swal);
+    const { user,editUser, restFLags, edit_successful} = AuthContext;
     const [newUser, setNewUser] = useState({
         name: user ? user.data.name : "",
         email: user ? user.data.email : ""
     })
+    const { name, email } = newUser;
     useEffect(() => {
-        console.log(newUser)
-    }, [newUser])
+        if (edit_successful) {
+            MySwal.fire(
+                'Edit Successful!',
+                `Now Your name is ${name} and email is ${email}`,
+                'success'
+            );
+            restFLags();
+        }
+    }, [edit_successful])
 
     const onChange = e => setNewUser({ ...newUser, [e.target.name]: e.target.value });
-    const onSubmit =()=>{
-
+    const onSubmit = e => {
+        e.preventDefault();
+        editUser({
+            name,
+            email
+        })
     }
     return (
         <section className="container mt-5">
@@ -40,6 +53,16 @@ const manageAccount = () => {
                                         className="form-control"
                                         onChange={onChange}
                                         value={newUser ? newUser.name : "name"}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Role</label>
+                                    <input
+                                        type="text"
+                                        name="role"
+                                        className="form-control"
+                                        disabled
+                                        value={user ? user.data.role : "role"}
                                     />
                                 </div>
                                 <div className="form-group">

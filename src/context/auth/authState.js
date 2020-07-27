@@ -11,7 +11,9 @@ import {
     LOGIN_FAIL,
     USER_LOADED,
     AUTH_ERROR,
-    LOGOUT
+    LOGOUT,
+    EDIT_USER,
+    RESET
 } from '../types';
 
 
@@ -19,6 +21,7 @@ const AuthState = props => {
     const initialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
+        edit_successful:false,
         error: null,
         user: null
     };
@@ -47,7 +50,7 @@ const AuthState = props => {
             });
         }
     }
-    
+
     //load user
     const loadUser = async () => {
         if (localStorage.token) {
@@ -86,28 +89,48 @@ const AuthState = props => {
                 payload: error.response.data
             });
         }
-}
+    }
 
-// logout user
-const logout=()=>{
-    dispatch({ type:LOGOUT})
-}
+    const editUser = async (formData) => {
+        try {
+            const res = await axios.put(`http://localhost:5000/api/v1/auth/updatedetails`, formData);
+            dispatch({
+                type: EDIT_USER,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+    const restFLags = () => {
+        dispatch({
+            type: RESET
+        });
+    }
 
-return (
-    <AuthContext.Provider
-        value={{
-            token: state.token,
-            isAuthenticated: state.isAuthenticated,
-            error: state.error,
-            user: state.user,
-            Register,
-            Login,
-            loadUser,
-            logout
-        }}
-    >
-        {props.children}
-    </AuthContext.Provider>
-);
+    // logout user
+    const logout = () => {
+        dispatch({ type: LOGOUT })
+    }
+
+    return (
+        <AuthContext.Provider
+            value={{
+                token: state.token,
+                isAuthenticated: state.isAuthenticated,
+                error: state.error,
+                user: state.user,
+                edit_successful: state.edit_successful,
+                Register,
+                Login,
+                loadUser,
+                logout,
+                editUser,
+                restFLags
+            }}
+        >
+            {props.children}
+        </AuthContext.Provider>
+    );
 };
 export default AuthState;

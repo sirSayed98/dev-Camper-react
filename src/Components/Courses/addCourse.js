@@ -12,7 +12,7 @@ import withReactContent from 'sweetalert2-react-content'
 const addCourse = (props) => {
     const BootcampContext = useContext(bootcampContext);
     const CourseContext = useContext(courseContext);
-    const MySwal = withReactContent(Swal)
+    const MySwal = withReactContent(Swal);
     const { bootcamps, loadBootcamp } = BootcampContext;
     const { createCourse, create_successful,restFLags } = CourseContext;
     const [course, setCourse] = useState({

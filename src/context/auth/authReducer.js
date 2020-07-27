@@ -5,7 +5,9 @@ import {
     LOGIN_FAIL,
     AUTH_ERROR,
     USER_LOADED,
-    LOGOUT
+    LOGOUT,
+    EDIT_USER,
+    RESET
 } from '../types';
 
 export default (state, action) => {
@@ -25,12 +27,12 @@ export default (state, action) => {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
-                error:null
+                error: null
             };
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case AUTH_ERROR:
-        case LOGOUT:    
+        case LOGOUT:
             localStorage.removeItem('token');
             return {
                 ...state,
@@ -38,6 +40,17 @@ export default (state, action) => {
                 isAuthenticated: false,
                 user: null,
                 error: action.payload
+            }
+        case EDIT_USER:
+            return {
+                ...state,
+                user: action.payload,
+                edit_successful: true
+            }
+        case RESET:
+            return {
+                ...state,
+                edit_successful: false
             }
         default:
             return state;

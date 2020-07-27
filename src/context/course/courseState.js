@@ -48,14 +48,8 @@ const CourseState = props => {
     }
 
     const editCourse = async (formData, courseID) => {
-        const config = {
-            headers: {
-                method: 'Post',
-                'Content-Type': 'application/json'
-            }
-        }
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/courses/${courseID}`, formData, config);
+            const res = await axios.put(`http://localhost:5000/api/v1/courses/${courseID}`, formData);
             dispatch({
                 type: EDIT_COURSE,
                 payload: res.data
