@@ -1,9 +1,19 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useContext } from 'react'
 import SearchBylocation from './SearchBylocation'
 import Filter from './SearchBylocation'
 import Bootcamp from './Bootcamp'
+import bootcampContext from '../../context/bootcamp/bootcampContext'
 
 const Bootcamps = () => {
+    const BootcampContext = useContext(bootcampContext);
+    const { allBootcamps,getALLBootcamps } = BootcampContext;
+
+    useEffect(() => {
+        getALLBootcamps();
+    },[])
+
     return (
         <section className="browse my-5">
             <div className="container">

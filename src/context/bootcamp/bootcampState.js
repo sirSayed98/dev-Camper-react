@@ -5,18 +5,19 @@ import bootcampReducer from './bootcampReducer';
 
 
 import {
- CREATE_BOOTCAMP,
- LOAD_BOOTCAMP
+    CREATE_BOOTCAMP,
+    LOAD_BOOTCAMP,
+    GET_ALL_BOOTCAMPS
 } from '../types';
 
 
 const BootCampState = props => {
     const initialState = {
-        bootcamps:null
+        bootcamps: null,
+        allBootcamps: []
     };
     const [state, dispatch] = useReducer(bootcampReducer, initialState);
 
-    //register user
 
     const Create = async formData => {
         const config = {
@@ -35,10 +36,10 @@ const BootCampState = props => {
             console.log(error.response.data)
         }
     }
-    
-    const loadBootcamp = async ()=> {
+
+    const loadBootcamp = async () => {
         try {
-            
+
             const res = await axios.get("http://localhost:5000/api/v1/bootcamps/myBootcamp");
             dispatch({
                 type: LOAD_BOOTCAMP,
@@ -48,9 +49,20 @@ const BootCampState = props => {
             console.log(error.response.data)
         }
     }
-    const fetchBootcamp = async (id)=> {
+    const getALLBootcamps = async () => {
         try {
-            
+            const res = await axios.get("http://localhost:5000/api/v1/bootcamps");
+            dispatch({
+                type: GET_ALL_BOOTCAMPS,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+    const fetchBootcamp = async (id) => {
+        try {
+
             const res = await axios.get(`http://localhost:5000/api/v1/bootcamps/${id}`);
             dispatch({
                 type: LOAD_BOOTCAMP,
@@ -62,17 +74,18 @@ const BootCampState = props => {
     }
 
 
-return (
-    <bootcampContext.Provider
-        value={{
-            bootcamps: state.bootcamps,
-            Create,
-            loadBootcamp,
-            fetchBootcamp
-        }}
-    >
-        {props.children}
-    </bootcampContext.Provider>
-);
+    return (
+        <bootcampContext.Provider
+            value={{
+                bootcamps: state.bootcamps,
+                Create,
+                loadBootcamp,
+                fetchBootcamp,
+                getALLBootcamps
+            }}
+        >
+            {props.children}
+        </bootcampContext.Provider>
+    );
 };
 export default BootCampState;
