@@ -1,14 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Link } from "react-router-dom"
 import authContext from '../../context/auth/authContext'
 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const manageAccount = () => {
     const AuthContext = useContext(authContext);
-    let { user } = AuthContext;
+    const { user } = AuthContext;
+    const [newUser, setNewUser] = useState({
+        name: user ? user.data.name : "",
+        email: user ? user.data.email : ""
+    })
+    useEffect(() => {
+        console.log(newUser)
+    }, [newUser])
+
+    const onChange = e => setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    const onSubmit =()=>{
+
+    }
     return (
         <section className="container mt-5">
             <div className="row">
@@ -16,15 +31,15 @@ const manageAccount = () => {
                     <div className="card bg-white py-2 px-4 mt-5">
                         <div className="card-body">
                             <h1 className="mb-2">Manage Account</h1>
-                            <form>
+                            <form onSubmit={onSubmit}>
                                 <div className="form-group">
                                     <label>Name</label>
                                     <input
                                         type="text"
-                                        name="title"
+                                        name="name"
                                         className="form-control"
-                                        placeholder="Name"
-                                        value="John Doe"
+                                        onChange={onChange}
+                                        value={newUser ? newUser.name : "name"}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -33,8 +48,8 @@ const manageAccount = () => {
                                         type="email"
                                         name="email"
                                         className="form-control"
-                                        placeholder="Email"
-                                        value="jdoe@gmail.com"
+                                        onChange={onChange}
+                                        value={newUser ? newUser.email : "email"}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -47,9 +62,9 @@ const manageAccount = () => {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <a
-                                                href="update-password.html"
-                                                className="btn btn-secondary btn-block">Update Password</a>
+                                            <Link
+                                                to="/update-Password"
+                                                className="btn btn-secondary btn-block">Update Password</Link>
                                         </div>
                                     </div>
                                 </div>
