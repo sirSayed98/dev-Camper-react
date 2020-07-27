@@ -8,7 +8,8 @@ import {
     CREATE_COURSE,
     RESET,
     EDIT_COURSE,
-    GET_COURSE
+    GET_COURSE,
+    DELETE_COURSE
 } from '../types';
 
 
@@ -76,7 +77,17 @@ const CourseState = props => {
             console.log(error.response.data)
         }
     }
-
+    const deleteCourse = async (courseID) => {
+        try {
+             await axios.delete(`http://localhost:5000/api/v1/courses/${courseID}`);
+            dispatch({
+                type: DELETE_COURSE,
+                payload: courseID
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
     return (
         <courseContext.Provider
             value={{
@@ -87,6 +98,7 @@ const CourseState = props => {
                 editCourse,
                 edit_successful: state.edit_successful,
                 getCourse,
+                deleteCourse,
                 currentCourse: state.currentCourse
             }}
         >

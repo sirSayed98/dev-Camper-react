@@ -2,7 +2,8 @@ import {
     CREATE_COURSE,
     RESET,
     EDIT_COURSE,
-    GET_COURSE
+    GET_COURSE,
+    DELETE_COURSE
 } from '../types';
 
 export default (state, action) => {
@@ -19,7 +20,7 @@ export default (state, action) => {
                 ...state,
                 create_successful: false,
                 edit_successful: false,
-                currentCourse:null
+                currentCourse: null
             }
         case EDIT_COURSE:
             console.log(action.payload)
@@ -35,6 +36,14 @@ export default (state, action) => {
                 currentCourse: action.payload
 
             }
+        case DELETE_COURSE:
+            return {
+                ...state,
+                courses: state.courses.filter(
+                    course => course._id !== action.payload
+                ),
+                loading: false
+            };
         default:
             return state;
     }

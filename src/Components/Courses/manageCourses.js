@@ -4,14 +4,42 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from "react-router-dom"
 import bootcampContext from '../../context/bootcamp/bootcampContext'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import courseContext from '../../context/course/courseContext'
+
+
 const manageCourses = (props) => {
     const BootcampContext = useContext(bootcampContext);
     const { bootcamps, loadBootcamp } = BootcampContext;
+    const CourseContext = useContext(courseContext);
+    const { deleteCourse, courses } = CourseContext;
+    const MySwal = withReactContent(Swal)
     useEffect(() => {
         loadBootcamp();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [courses])
 
+    function DeleteCourse(courseID, title) {
+        MySwal.fire({
+            title: `Do you want to delete (${title}) course ? `,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                deleteCourse(courseID);
+                MySwal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    }
     //let courses = props.location.data.bootcamps.data.courses;
     //let Bootcamp = props.location.data.bootcamps.data;
 
@@ -61,13 +89,13 @@ const manageCourses = (props) => {
                                     {
                                         bootcamps ? bootcamps.data.courses.map((course) => {
                                             return (
-                                                <tr>
+                                                <tr key={course._id}>
                                                     <td>{course.title}</td>
                                                     <td className="float-right">
                                                         <Link to={`/edit-course/${course._id}`} className="btn btn-secondary"><i className="fas fa-pencil-alt"> Edit</i></Link>
-                                                        <Link to={`/delete-course/${course._id}`} className="btn btn-danger">
+                                                        <button className="btn btn-danger" onClick={() => DeleteCourse(course._id, course.title)}>
                                                             <i className="fas fa-times"> Delete</i>
-                                                        </Link>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             )
