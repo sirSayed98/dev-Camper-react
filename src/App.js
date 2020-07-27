@@ -4,7 +4,7 @@ import Navbar from "./Components/layout/Navbar";
 import home from "./pages/home";
 import login from "./pages/login";
 import register from "./pages/register";
-import resetPassword from "./pages/resetPassword";
+import resetPassword from "./Components/account/resetPassword";
 import AuthState from "./context/auth/authState";
 import BootcampState from './context/bootcamp/bootcampState'
 import CourseState from './context/course/courseState'
@@ -16,6 +16,7 @@ import manageCourses from './Components/Courses/manageCourses'
 import PrivateRoute from "./routing/privateRoute"
 import addCourse from './Components/Courses/addCourse'
 import editCourse from './Components/Courses/editCourse'
+import manageAccount from './Components/account/manageAccount'
 
 import './App.css';
 import './bootstrap.css'
@@ -28,6 +29,7 @@ const App = () => {
             <Router>
               <Navbar />
               <Switch>
+
                 <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
                 <PrivateRoute exact path="/add-course" component={addCourse} />
                 <PrivateRoute exact path="/edit-course/:courseId" component={editCourse} />
@@ -36,7 +38,8 @@ const App = () => {
                 <Route exact path="/bootcamp/:bootcampId" component={singleBootcamp} />
                 <Route exact path="/" component={home} />
                 <Route exact path="/login" component={login} />
-                <Route exact path="/reset-password" component={resetPassword} />
+                <PrivateRoute exact path="/reset-password" component={resetPassword} />
+                <PrivateRoute exact path="/manage-Account" component={manageAccount} />
                 <Route exact path="/register" component={register} />
                 <Route exact path="/Bootcamps" component={Bootcamps} />
               </Switch>

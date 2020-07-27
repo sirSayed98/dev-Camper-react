@@ -56,9 +56,8 @@ const Navbar = (props) => {
                     <a className="dropdown-item" href="manage-reviews.html"
                     >Manage Reviews</a
                     >
-                    <a className="dropdown-item" href="manage-account.html"
-                    >Manage Account</a
-                    >
+                    <Link className="dropdown-item" to="/manage-Account"
+                    >Manage Account</Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" onClick={onLogout} to="/"><i className="fas fa-sign-out-alt"></i> Logout</Link>
                 </div>
