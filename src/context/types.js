@@ -13,3 +13,5 @@ export const  GET_COURSE = 'GET_COURSE';
 export const  RESET = 'REST';
 export const  DELETE_COURSE = 'DELETE_COURSE';
 export const  EDIT_USER = 'EDIT_USER';
+export const  UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+export const  FAIL_UPDATE_PASSWORD = 'FAIL_UPDATE_PASSWORD';

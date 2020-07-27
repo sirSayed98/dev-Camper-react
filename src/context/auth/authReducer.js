@@ -7,7 +7,9 @@ import {
     USER_LOADED,
     LOGOUT,
     EDIT_USER,
-    RESET
+    RESET,
+    UPDATE_PASSWORD,
+    FAIL_UPDATE_PASSWORD
 } from '../types';
 
 export default (state, action) => {
@@ -27,7 +29,7 @@ export default (state, action) => {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
-                error: null
+                error: null,
             };
         case REGISTER_FAIL:
         case LOGIN_FAIL:
@@ -45,13 +47,24 @@ export default (state, action) => {
             return {
                 ...state,
                 user: action.payload,
-                edit_successful: true
+                edit_successful: true,
             }
         case RESET:
             return {
                 ...state,
-                edit_successful: false
+                edit_successful: false,
+                error: null
             }
+        case FAIL_UPDATE_PASSWORD:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case UPDATE_PASSWORD:
+            return {
+                ...state,
+                edit_successful: true
+            };
         default:
             return state;
     }

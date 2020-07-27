@@ -13,7 +13,9 @@ import {
     AUTH_ERROR,
     LOGOUT,
     EDIT_USER,
-    RESET
+    RESET,
+    UPDATE_PASSWORD,
+    FAIL_UPDATE_PASSWORD
 } from '../types';
 
 
@@ -21,7 +23,7 @@ const AuthState = props => {
     const initialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
-        edit_successful:false,
+        edit_successful: false,
         error: null,
         user: null
     };
@@ -107,6 +109,21 @@ const AuthState = props => {
             type: RESET
         });
     }
+    const UpdatePassword = async (formData) => {
+        try {
+            const res = await axios.put(`http://localhost:5000/api/v1/auth/updatepassword`,formData);
+            dispatch({
+                type: UPDATE_PASSWORD,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error.response.data);
+            dispatch({
+                type:FAIL_UPDATE_PASSWORD,
+                payload:error.response.data
+            })
+        }
+    }
 
     // logout user
     const logout = () => {
@@ -126,7 +143,8 @@ const AuthState = props => {
                 loadUser,
                 logout,
                 editUser,
-                restFLags
+                restFLags,
+                UpdatePassword
             }}
         >
             {props.children}
