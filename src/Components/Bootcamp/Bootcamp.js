@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 const Bootcamp = ({ boot }) => {
 
     useEffect(() => {
-        console.log(boot.careers.join(' - '));
+        console.log(boot);
     }, [])
     return (
         <div className="card mb-3">
@@ -16,7 +16,7 @@ const Bootcamp = ({ boot }) => {
                     <div className="card-body">
                         <h5 className="card-title">
                             <Link to={`/bootcamp/${boot.id}`}>{boot.name}
-                                <span className="float-right badge badge-success">8.8</span></Link>
+                                <span className="float-right badge badge-success">{boot.averageRating}</span></Link>
                         </h5>
                         <span className="badge badge-dark mb-2">{boot.location.city ? boot.location.city : "City"},{boot.location.city ? boot.location.country : "Country"}</span>
                         <p className="card-text">
