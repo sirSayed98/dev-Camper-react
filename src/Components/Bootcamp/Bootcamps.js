@@ -8,11 +8,11 @@ import bootcampContext from '../../context/bootcamp/bootcampContext'
 
 const Bootcamps = () => {
     const BootcampContext = useContext(bootcampContext);
-    const { allBootcamps,getALLBootcamps } = BootcampContext;
+    const { allBootcamps, getALLBootcamps } = BootcampContext;
 
     useEffect(() => {
         getALLBootcamps();
-    },[])
+    }, [])
 
     return (
         <section className="browse my-5">
@@ -23,7 +23,12 @@ const Bootcamps = () => {
                         <Filter />
                     </div>
                     <div className="col-md-8 mt-5">
-                        <Bootcamp />
+                        {
+                            (allBootcamps) ? allBootcamps.map(bootcamp => {
+                                return (<Bootcamp boot={bootcamp} key={bootcamp.id} />)
+                            }) : <h1 className="text-center"> No Bootcamps Existed</h1>
+                        }
+
                     </div>
                 </div>
             </div>

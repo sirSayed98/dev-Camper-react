@@ -54,10 +54,10 @@ const BootCampState = props => {
             const res = await axios.get("http://localhost:5000/api/v1/bootcamps");
             dispatch({
                 type: GET_ALL_BOOTCAMPS,
-                payload: res.data
+                payload:  Object.values(res.data.data)
             });
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error.response)
         }
     }
     const fetchBootcamp = async (id) => {
@@ -78,6 +78,7 @@ const BootCampState = props => {
         <bootcampContext.Provider
             value={{
                 bootcamps: state.bootcamps,
+                allBootcamps:state.allBootcamps,
                 Create,
                 loadBootcamp,
                 fetchBootcamp,
