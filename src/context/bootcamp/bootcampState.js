@@ -7,7 +7,8 @@ import bootcampReducer from './bootcampReducer';
 import {
     CREATE_BOOTCAMP,
     LOAD_BOOTCAMP,
-    GET_ALL_BOOTCAMPS
+    GET_ALL_BOOTCAMPS,
+    RESET
 } from '../types';
 
 
@@ -54,7 +55,7 @@ const BootCampState = props => {
             const res = await axios.get("http://localhost:5000/api/v1/bootcamps");
             dispatch({
                 type: GET_ALL_BOOTCAMPS,
-                payload:  Object.values(res.data.data)
+                payload: Object.values(res.data.data)
             });
         } catch (error) {
             console.log(error.response)
@@ -73,16 +74,23 @@ const BootCampState = props => {
         }
     }
 
+    const resetFlags = () => {
+        dispatch({
+            type: RESET
+        })
+    }
+
 
     return (
         <bootcampContext.Provider
             value={{
                 bootcamps: state.bootcamps,
-                allBootcamps:state.allBootcamps,
+                allBootcamps: state.allBootcamps,
                 Create,
                 loadBootcamp,
                 fetchBootcamp,
-                getALLBootcamps
+                getALLBootcamps,
+                resetFlags 
             }}
         >
             {props.children}

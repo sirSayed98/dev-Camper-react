@@ -7,7 +7,7 @@ const Navbar = (props) => {
     const AuthContext = useContext(authContext);
     const BootcampContext = useContext(bootcampContext);
 
-    let { bootcamps, loadBootcamp } = BootcampContext;
+    let { bootcamps, loadBootcamp, resetFlags } = BootcampContext;
     let { isAuthenticated, user, logout } = AuthContext;
 
     const onLogout = () => {
@@ -16,8 +16,10 @@ const Navbar = (props) => {
 
     useEffect(() => {
         if (user != null) {
-            if (user.data.role === 'publisher'&&bootcamps==null)
-                loadBootcamp();
+            if (user.data.role === 'publisher' && bootcamps == null)
+                loadBootcamp(); //to get bootcamp for publisher
+            else
+                resetFlags();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
@@ -48,14 +50,17 @@ const Navbar = (props) => {
                 </a>
                 <div className="dropdown-menu">
                     {
-                        (bootcamps === null) ?
+                        (bootcamps === null && user !== null && user.data.role === 'publisher') ?
                             <Link className="dropdown-item" to="/create-Bootcamp">Create Bootcamp</Link>
-                            : <Link className="dropdown-item" to="/manage-bootcamp">Manage Bootcamp</Link>
+                            : null
                     }
-
-                    <a className="dropdown-item" href="manage-reviews.html"
-                    >Manage Reviews</a
-                    >
+                    {
+                        (bootcamps !== null && user !== null && user.data.role === 'publisher') ?
+                            <Link className="dropdown-item" to="/manage-bootcamp">Manage Bootcamp</Link>
+                            : null
+                    }
+                    {(user !== null && user.data.role === 'user') ? <Link className="dropdown-item" to="/manage-Reviews"
+                    >Manage Reviews</Link> : null}
                     <Link className="dropdown-item" to="/manage-Account"
                     >Manage Account</Link>
                     <div className="dropdown-divider"></div>

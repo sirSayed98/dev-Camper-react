@@ -1,7 +1,8 @@
 import {
     CREATE_BOOTCAMP,
     LOAD_BOOTCAMP,
-    GET_ALL_BOOTCAMPS
+    GET_ALL_BOOTCAMPS,
+    RESET
 } from '../types';
 
 export default (state, action) => {
@@ -17,7 +18,13 @@ export default (state, action) => {
             ...state,
             allBootcamps: action.payload
         }
+        case RESET:
+           return {
+               ...state,
+               allBootcamps:[],
+               bootcamps:null
 
+           }
         default:
             return state;
     }
