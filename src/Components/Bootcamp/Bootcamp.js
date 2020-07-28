@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from "react-router-dom"
 const Bootcamp = ({ boot }) => {
 
-    useEffect(() => {
-        console.log(boot);
-    }, [])
     return (
         <div className="card mb-3">
             <div className="row no-gutters">

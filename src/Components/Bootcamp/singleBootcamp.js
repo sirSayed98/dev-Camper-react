@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
-import { Link } from "react-router-dom"
+
 import bootcampContext from '../../context/bootcamp/bootcampContext'
 
 
@@ -11,9 +11,7 @@ const singleBootcamp = ({ match }) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        console.log("enter here");
         fetchBootcamp(match.params.bootcampId);
-        console.log(bootcamps);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
@@ -30,18 +28,23 @@ const singleBootcamp = ({ match }) => {
                         {/* <!-- Avg cost --> */}
                         <p className="lead mb-4">Average Course Cost: <span className="text-primary">{(bootcamps !== null) ? bootcamps.data.averageCost : "0.0"}</span></p>
                         {/* <!-- Courses --> */}
-                        <div className="card mb-3">
-                            <h5 className="card-header bg-primary text-white">Full Stack Web Development</h5>
-                            <div className="card-body">
-                                <h5 className="card-title">Duration: 12 Weeks</h5>
-                                <p className="card-text">In this course you will learn full stack web development, first learning all about the frontend with HTML/CSS/JS/Vue and then the backend with Node.js/Express/MongoDB</p>
-                                <ul className="list-group mb-3">
-                                    <li className="list-group-item">Cost: $10,000 USD</li>
-                                    <li className="list-group-item">Skill Required: Intermediate</li>
-                                    <li className="list-group-item">Scholarship Available: <i className="fas fa-times text-danger"></i></li>
-                                </ul>
-                            </div>
-                        </div>
+                        {
+                            (bootcamps !== null && bootcamps !== undefined) ? bootcamps.data.courses.map(course => {
+                                return (<div className="card mb-3" key={course._id}>
+                                    <h5 className="card-header bg-primary text-white">{course.title}</h5>
+                                    <div className="card-body">
+                                        <h5 className="card-title">Duration: {course.weeks} Weeks</h5>
+                                        <p className="card-text">{course.description}</p>
+                                        <ul className="list-group mb-3">
+                                            <li className="list-group-item">Cost: {course.tuition} USD</li>
+                                            <li className="list-group-item">Skill Required: {course.minimumSkill}</li>
+                                            <li className="list-group-item">Scholarship Available: {course.scholarshipAvailable ? <i className="fas fa-times text-success"></i> : <i className="fas fa-times text-danger"></i>}</li>
+                                        </ul>
+                                    </div>
+                                </div>)
+                            }) : <h1>No courses existed</h1>
+
+                        }
                     </div>
                     <div className="col-md-4">
                         <img src="img/image_1.jpg" className="img-thumbnail" alt="" />
@@ -50,15 +53,15 @@ const singleBootcamp = ({ match }) => {
                         <a href="add-review.html" className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</a>
                         <a href="#!" target="_blank" className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
                         <ul className="list-group list-group-flush mt-4">
-                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.housing ? "text-success":"text-danger"}` : null}></i> Housing</li>
-                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.jobAssistance ? "text-success":"text-danger"}` : null}></i> Job Assistance</li>
-                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.jobGuarantee ? "text-success":"text-danger"}` : null}></i> Job Guarantee</li>
-                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.acceptGi ? "text-success":"text-danger"}` : null}></i> Accepts GI Bill</li>
+                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.housing ? "text-success" : "text-danger"}` : null}></i> Housing</li>
+                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.jobAssistance ? "text-success" : "text-danger"}` : null}></i> Job Assistance</li>
+                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.jobGuarantee ? "text-success" : "text-danger"}` : null}></i> Job Guarantee</li>
+                            <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.acceptGi ? "text-success" : "text-danger"}` : null}></i> Accepts GI Bill</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
 
