@@ -13,6 +13,7 @@ const Navbar = (props) => {
     const onLogout = () => {
         logout();
     }
+   
 
     useEffect(() => {
         if (user != null) {

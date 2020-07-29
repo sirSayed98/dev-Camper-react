@@ -1,12 +1,45 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import bootcampContext from '../../context/bootcamp/bootcampContext'
+import axios from 'axios'
 const manageBootcamp = () => {
     const BootcampContext = useContext(bootcampContext);
-
     const { bootcamps, loadBootcamp } = BootcampContext;
 
+    //file upload
+    const [file, setFile] = useState('');
+    const [filename, setFilename] = useState('Choose File');
+    const [uploadedFile, setUploadedFile] = useState({});
+
+    const onChange = e => {
+        setFile(e.target.files[0]);
+        setFilename(e.target.files[0].name);
+
+    };
+
+    const onSubmit = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const res = await axios.put(`http://localhost:5000/api/v1/bootcamps/${bootcamps.data._id}/photo`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            });
+            const { fileName, filePath } = res.data;
+
+            setUploadedFile({ fileName, filePath });
+        } catch (err) {
+            if (err.response.status === 500) {
+                console.log('There was a problem with the server');
+            } else {
+                console.log(err.response);
+            }
+        }
+    };
     useEffect(() => {
         if (bootcamps == null) {
             loadBootcamp();
@@ -24,7 +57,7 @@ const manageBootcamp = () => {
                             <div className="card mb-3">
                                 <div className="row no-gutters">
                                     <div className="col-md-4">
-                                        <img src="img/image_1.jpg" className="card-img" alt="..." />
+                                        <img src={uploadedFile === {} ? uploadedFile.filePath : `./uploads/photo_${bootcamps.data.id}.jpg`} className="card-img" alt="..." />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
@@ -42,16 +75,17 @@ const manageBootcamp = () => {
                                     </div>
                                 </div>
                             </div>
-                            <form className="mb-4">
+                            <form onSubmit={onSubmit} className="mb-4">
                                 <div className="form-group">
                                     <div className="custom-file">
                                         <input
                                             type="file"
                                             name="photo"
-                                            className="custom-file-input"
-                                            id="photo"
+                                            className='custom-file-input'
+                                            id='customFile'
+                                            onChange={onChange}
                                         />
-                                        <label className="custom-file-label" htmlFor="photo">Add Bootcamp Image</label>
+                                        <label className="custom-file-label" htmlFor="photo">{filename ? filename : "Add Bootcamp Image"}</label>
                                     </div>
                                 </div>
                                 <input type="submit" className="btn btn-light btn-block" value="Upload Image" />
