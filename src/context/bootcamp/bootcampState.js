@@ -28,7 +28,7 @@ const BootCampState = props => {
             }
         }
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/bootcamps", formData, config);
+            const res = await axios.post("/api/v1/bootcamps", formData, config);
             dispatch({
                 type: CREATE_BOOTCAMP,
                 payload: res.data
@@ -41,7 +41,7 @@ const BootCampState = props => {
     const loadBootcamp = async () => {
         try {
 
-            const res = await axios.get("http://localhost:5000/api/v1/bootcamps/myBootcamp");
+            const res = await axios.get("/api/v1/bootcamps/myBootcamp");
             dispatch({
                 type: LOAD_BOOTCAMP,
                 payload: res.data
@@ -52,7 +52,7 @@ const BootCampState = props => {
     }
     const getALLBootcamps = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/v1/bootcamps");
+            const res = await axios.get("/api/v1/bootcamps");
             dispatch({
                 type: GET_ALL_BOOTCAMPS,
                 payload: Object.values(res.data.data)
@@ -64,7 +64,7 @@ const BootCampState = props => {
     const fetchBootcamp = async (id) => {
         try {
 
-            const res = await axios.get(`http://localhost:5000/api/v1/bootcamps/${id}`);
+            const res = await axios.get(`/api/v1/bootcamps/${id}`);
             dispatch({
                 type: LOAD_BOOTCAMP,
                 payload: res.data
