@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
 
 import bootcampContext from '../../context/bootcamp/bootcampContext'
-
-
+import { Link } from "react-router-dom"
+import AuthContext from '../../context/auth/authContext'
 const singleBootcamp = ({ match }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const BootcampContext = useContext(bootcampContext);
+    const authContext = useContext(AuthContext);
     const { bootcamps, fetchBootcamp } = BootcampContext;
-
+    const { user } = authContext;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         fetchBootcamp(match.params.bootcampId);
@@ -50,7 +52,8 @@ const singleBootcamp = ({ match }) => {
                         <img src="img/image_1.jpg" className="img-thumbnail" alt="" />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
                         <a href="reviews.html" className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</a>
-                        <a href="add-review.html" className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</a>
+                        {user && user.data.role === 'user' ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>
+                            : null}
                         <a href="#!" target="_blank" className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
                         <ul className="list-group list-group-flush mt-4">
                             <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.housing ? "text-success" : "text-danger"}` : null}></i> Housing</li>
