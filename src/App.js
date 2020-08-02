@@ -9,6 +9,7 @@ import updatePassword from "./Components/account/updatePassword";
 import AuthState from "./context/auth/authState";
 import BootcampState from './context/bootcamp/bootcampState'
 import CourseState from './context/course/courseState'
+import ReviewState from './context/review/reviewState'
 import Bootcamps from './Components/Bootcamp/Bootcamps'
 import createBootcamp from './Components/Bootcamp/createBootcamp'
 import singleBootcamp from './Components/Bootcamp/singleBootcamp'
@@ -18,6 +19,7 @@ import PrivateRoute from "./routing/privateRoute"
 import addCourse from './Components/Courses/addCourse'
 import editCourse from './Components/Courses/editCourse'
 import manageAccount from './Components/account/manageAccount'
+import addReview from './Components/Reviews/addReview'
 
 import './App.css';
 import './bootstrap.css'
@@ -26,17 +28,17 @@ const App = () => {
     <AuthState>
       <BootcampState>
         <CourseState>
+          <ReviewState>
           <Fragment>
             <Router>
               <Navbar />
               <Switch>
-
                 <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
                 <PrivateRoute exact path="/add-course" component={addCourse} />
                 <PrivateRoute exact path="/edit-course/:courseId" component={editCourse} />
                 <PrivateRoute exact path="/manage-courses" component={manageCourses} />
                 <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
-                <PrivateRoute exact path="/add-Review:/:bootcampId" component={manageBootcamp} />
+                <Route exact path="/add-Review/:bootcampId" component={addReview} />
                 <Route exact path="/bootcamp/:bootcampId" component={singleBootcamp} />
                 <Route exact path="/" component={home} />
                 <Route exact path="/login" component={login} />
@@ -48,6 +50,7 @@ const App = () => {
               </Switch>
             </Router>
           </Fragment>
+          </ReviewState>
         </CourseState>
       </BootcampState>
     </AuthState>
