@@ -15,6 +15,7 @@ import createBootcamp from './Components/Bootcamp/createBootcamp'
 import singleBootcamp from './Components/Bootcamp/singleBootcamp'
 import manageBootcamp from './Components/Bootcamp/manageBootcamp'
 import manageCourses from './Components/Courses/manageCourses'
+import manageReviews from './Components/Reviews/manageReviews'
 import PrivateRoute from "./routing/privateRoute"
 import addCourse from './Components/Courses/addCourse'
 import editCourse from './Components/Courses/editCourse'
@@ -37,6 +38,7 @@ const App = () => {
                 <PrivateRoute exact path="/add-course" component={addCourse} />
                 <PrivateRoute exact path="/edit-course/:courseId" component={editCourse} />
                 <PrivateRoute exact path="/manage-courses" component={manageCourses} />
+                <PrivateRoute exact path="/manage-Reviews" component={manageReviews} />
                 <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />
                 <Route exact path="/add-Review/:bootcampId" component={addReview} />
                 <Route exact path="/bootcamp/:bootcampId" component={singleBootcamp} />
