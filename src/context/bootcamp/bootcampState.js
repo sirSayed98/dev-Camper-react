@@ -8,7 +8,8 @@ import {
     CREATE_BOOTCAMP,
     LOAD_BOOTCAMP,
     GET_ALL_BOOTCAMPS,
-    RESET
+    RESET,
+    DELETE_BOOTCAMP
 } from '../types';
 
 
@@ -74,6 +75,17 @@ const BootCampState = props => {
         }
     }
 
+    const deleteBootcamp = async (bootcampId) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/v1/bootcamps/${bootcampId}`)
+            dispatch({
+                type: DELETE_BOOTCAMP,
+                payload: bootcampId
+            });
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    }
     const resetFlags = () => {
         dispatch({
             type: RESET
@@ -90,7 +102,8 @@ const BootCampState = props => {
                 loadBootcamp,
                 fetchBootcamp,
                 getALLBootcamps,
-                resetFlags 
+                resetFlags,
+                deleteBootcamp
             }}
         >
             {props.children}

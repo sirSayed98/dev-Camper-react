@@ -12,7 +12,6 @@ export default (state, action) => {
         case CREATE_COURSE:
             return {
                 ...state,
-                courses: state.courses.push(action.payload),
                 create_successful: true
             };
         case RESET:

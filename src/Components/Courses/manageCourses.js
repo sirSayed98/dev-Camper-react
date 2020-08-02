@@ -57,7 +57,7 @@ const manageCourses = (props) => {
                             <div className="card mb-3">
                                 <div className="row no-gutters">
                                     <div className="col-md-4">
-                                        <img src="img/image_1.jpg" className="card-img" alt="..." />
+                                    <img src={`./uploads/photo_${bootcamps.data.id}.jpg`} className="card-img" alt="..." />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">

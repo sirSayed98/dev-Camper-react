@@ -2,7 +2,8 @@ import {
     CREATE_BOOTCAMP,
     LOAD_BOOTCAMP,
     GET_ALL_BOOTCAMPS,
-    RESET
+    RESET,
+    DELETE_BOOTCAMP
 } from '../types';
 
 export default (state, action) => {
@@ -19,12 +20,19 @@ export default (state, action) => {
             allBootcamps: action.payload
         }
         case RESET:
-           return {
-               ...state,
-               allBootcamps:[],
-               bootcamps:null
+            return {
+                ...state,
+                allBootcamps: [],
+                bootcamps: null
 
-           }
+            }
+        case DELETE_BOOTCAMP:
+            return {
+                bootcamps: null,
+                allBootcamps: state.allBootcamps.filter(
+                    bootcamp => bootcamp._id !== action.payload
+                )
+            }
         default:
             return state;
     }

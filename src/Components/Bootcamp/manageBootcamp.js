@@ -4,10 +4,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import bootcampContext from '../../context/bootcamp/bootcampContext'
 import axios from 'axios'
-const manageBootcamp = () => {
-    const BootcampContext = useContext(bootcampContext);
-    const { bootcamps, loadBootcamp } = BootcampContext;
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const manageBootcamp = (props) => {
+    const BootcampContext = useContext(bootcampContext);
+    const { bootcamps, loadBootcamp,deleteBootcamp } = BootcampContext;
+    const MySwal = withReactContent(Swal)
     //file upload
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
@@ -40,6 +43,28 @@ const manageBootcamp = () => {
             }
         }
     };
+    function DeleteBootcamp() {
+        MySwal.fire({
+            title: `Do you want to delete (${bootcamps.data.name}) bootcamp ? `,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                deleteBootcamp(bootcamps.data.id);
+                MySwal.fire(
+                    'Deleted!',
+                    'Your bootcamp has been deleted.',
+                    'success'
+                )
+                props.history.push('/')
+            }
+        })
+    }
+
     useEffect(() => {
         if (bootcamps == null) {
             loadBootcamp();
@@ -96,8 +121,7 @@ const manageBootcamp = () => {
                                 data: { bootcamps }
                             }} className="btn btn-secondary btn-block">Manage Courses</Link> : null}
                             <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
-                            <Link to="/remove-bootcamp" className="btn btn-danger btn-block">Remove Bootcamp</Link>
-
+                            <button className="btn btn-danger btn-block" onClick={() => DeleteBootcamp()}>Remove Bootcamp</button>
                         </div>
                     </div>
                 </div>
