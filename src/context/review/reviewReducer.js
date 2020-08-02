@@ -1,5 +1,6 @@
 import {
     ADD_REVIEW,
+    USER_REVIEWS,
     RESET
 } from '../types';
 
@@ -11,10 +12,14 @@ export default (state, action) => {
                 ...state,
                 create_successful: true
             };
-        case RESET: return{
+        case USER_REVIEWS: return {
+            ...state,
+            reviews: action.payload
+        };
+        case RESET: return {
             ...state,
             create_successful: false
-        }    
+        };
         default:
             return state;
     }

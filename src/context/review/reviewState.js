@@ -5,8 +5,9 @@ import reviewReducer from './reviewReducer';
 
 
 import {
-  ADD_REVIEW,
-  RESET
+    ADD_REVIEW,
+    USER_REVIEWS,
+    RESET
 } from '../types';
 
 
@@ -14,7 +15,7 @@ const ReviewState = props => {
     const initialState = {
         reviews: [],
         review: null,
-        create_successful:false
+        create_successful: false
     };
     const [state, dispatch] = useReducer(reviewReducer, initialState);
 
@@ -37,13 +38,25 @@ const ReviewState = props => {
             console.log(error.response.data)
         }
     }
+    
+    const getUserReviews = async () => {
+        try {
+            const res = await axios.get(`http://localhost:5000/api/v1/reviews/myreviews`);
+            dispatch({
+                type: USER_REVIEWS,
+                payload: Object.values(res.data.data)
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
     const resetFlags = () => {
         dispatch({
             type: RESET
         })
     }
 
-    
+
 
     return (
         <reviewContext.Provider
@@ -52,6 +65,7 @@ const ReviewState = props => {
                 review: state.review,
                 create_successful: state.create_successful,
                 AddReview,
+                getUserReviews,
                 resetFlags
             }}
         >
