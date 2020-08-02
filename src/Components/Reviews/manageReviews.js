@@ -3,17 +3,38 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useState } from 'react'
 import reviewContext from '../../context/review/reviewContext'
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 const manageReviews = () => {
     const ReviewContext = useContext(reviewContext);
-    const { reviews, getUserReviews } = ReviewContext;
-
+    const { reviews, getUserReviews, deleteReview } = ReviewContext;
+    const MySwal = withReactContent(Swal);
     useEffect(() => {
         getUserReviews();
     }, [])
 
-    useEffect(() => {
-        console.log(reviews);
-    }, [reviews])
+    function DeleteReview(reviewID,name) {
+        MySwal.fire({
+            title: `Do you want to delete review of ${name} bootcamp ? `,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                deleteReview(reviewID);
+                MySwal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    }
     return (
         <section className="container mt-5">
             <div className="row">
@@ -31,14 +52,14 @@ const manageReviews = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        (reviews !== null && reviews !== undefined) ? reviews.map(boot => {
+                                        (reviews !== null && reviews !== undefined) ? reviews.map(course => {
                                             return (
                                                 <tr>
-                                                    <td>{boot.bootcamp.name}</td>
-                                                    <td>{boot.rating}</td>
+                                                    <td>{course.bootcamp.name}</td>
+                                                    <td>{course.rating}</td>
                                                     <td>
                                                         <a href="add-review.html" className="btn btn-secondary"><i className="fas fa-pencil-alt"></i></a>
-                                                        <button className="btn btn-danger">
+                                                        <button className="btn btn-danger" onClick={() =>DeleteReview(course._id,course.bootcamp.name)}>
                                                             <i className="fas fa-times"></i>
                                                         </button>
                                                     </td>
