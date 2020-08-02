@@ -49,7 +49,7 @@ const singleBootcamp = ({ match }) => {
                         }
                     </div>
                     <div className="col-md-4">
-                        <img src="img/image_1.jpg" className="img-thumbnail" alt="" />
+                    <img src={bootcamps ? `./uploads/photo_${bootcamps.data.id}.jpg`:null} className="card-img" alt="..." />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
                         <a href="reviews.html" className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</a>
                         {user && user.data.role === 'user' ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>

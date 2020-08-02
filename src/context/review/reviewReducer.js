@@ -1,5 +1,6 @@
 import {
-    ADD_REVIEW
+    ADD_REVIEW,
+    RESET
 } from '../types';
 
 export default (state, action) => {
@@ -10,6 +11,10 @@ export default (state, action) => {
                 ...state,
                 create_successful: true
             };
+        case RESET: return{
+            ...state,
+            create_successful: false
+        }    
         default:
             return state;
     }

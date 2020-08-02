@@ -5,7 +5,8 @@ import reviewReducer from './reviewReducer';
 
 
 import {
-  ADD_REVIEW
+  ADD_REVIEW,
+  RESET
 } from '../types';
 
 
@@ -36,6 +37,12 @@ const ReviewState = props => {
             console.log(error.response.data)
         }
     }
+    const resetFlags = () => {
+        dispatch({
+            type: RESET
+        })
+    }
+
     
 
     return (
@@ -44,7 +51,8 @@ const ReviewState = props => {
                 reviews: state.reviews,
                 review: state.review,
                 create_successful: state.create_successful,
-                AddReview
+                AddReview,
+                resetFlags
             }}
         >
             {props.children}
