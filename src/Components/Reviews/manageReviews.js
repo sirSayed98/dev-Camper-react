@@ -13,7 +13,7 @@ const manageReviews = () => {
     const MySwal = withReactContent(Swal);
     useEffect(() => {
         getUserReviews();
-    }, [])
+    },[])
 
     function DeleteReview(reviewID,name) {
         MySwal.fire({

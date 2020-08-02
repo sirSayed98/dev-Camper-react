@@ -7,6 +7,7 @@ import reviewReducer from './reviewReducer';
 import {
     ADD_REVIEW,
     USER_REVIEWS,
+    DELETE_REVIEW,
     RESET
 } from '../types';
 
@@ -50,6 +51,18 @@ const ReviewState = props => {
             console.log(error.response.data)
         }
     }
+
+    const deleteReview = async (reviewID) => {
+        try {
+             await axios.delete(`http://localhost:5000/api/v1/reviews/${reviewID}`);
+            dispatch({
+                type: DELETE_REVIEW,
+                payload: reviewID
+            });
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
     const resetFlags = () => {
         dispatch({
             type: RESET
@@ -66,6 +79,7 @@ const ReviewState = props => {
                 create_successful: state.create_successful,
                 AddReview,
                 getUserReviews,
+                deleteReview,
                 resetFlags
             }}
         >

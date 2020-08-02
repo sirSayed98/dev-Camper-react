@@ -1,6 +1,7 @@
 import {
     ADD_REVIEW,
     USER_REVIEWS,
+    DELETE_REVIEW,
     RESET
 } from '../types';
 
@@ -20,6 +21,12 @@ export default (state, action) => {
             ...state,
             create_successful: false
         };
+        case DELETE_REVIEW: return {
+            ...state,
+            reviews: state.reviews.filter(
+                review => review._id !== action.payload
+            ),
+        }
         default:
             return state;
     }

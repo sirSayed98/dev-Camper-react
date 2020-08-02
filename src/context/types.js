@@ -19,3 +19,4 @@ export const  GET_ALL_BOOTCAMPS = 'GET_ALL_BOOTCAMPS';
 export const DELETE_BOOTCAMP = 'DELETE_BOOTCAMP';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const USER_REVIEWS = 'USER_REVIEWS';
+export const DELETE_REVIEW = 'DELETE_REVIEW';
