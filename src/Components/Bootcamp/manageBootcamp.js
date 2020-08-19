@@ -5,11 +5,13 @@ import { Link } from "react-router-dom"
 import bootcampContext from '../../context/bootcamp/bootcampContext'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import AuthContext from '../../context/auth/authContext'
 import withReactContent from 'sweetalert2-react-content'
 
 const manageBootcamp = (props) => {
     const BootcampContext = useContext(bootcampContext);
-    const { bootcamps, loadBootcamp,deleteBootcamp } = BootcampContext;
+    const authContext = useContext(AuthContext);
+    const { bootcamps, loadBootcamp, deleteBootcamp } = BootcampContext;
     const MySwal = withReactContent(Swal)
     //file upload
     const [file, setFile] = useState('');
@@ -35,6 +37,11 @@ const manageBootcamp = (props) => {
             const { fileName, filePath } = res.data;
 
             setUploadedFile({ fileName, filePath });
+            MySwal.fire(
+                `Upload photo ${fileName} Successfully`,
+                'It will take some time to change it!',
+                'success');
+            loadBootcamp();
         } catch (err) {
             if (err.response.status === 500) {
                 console.log('There was a problem with the server');
@@ -66,11 +73,12 @@ const manageBootcamp = (props) => {
     }
 
     useEffect(() => {
-        if (bootcamps == null) {
+        if (authContext.user === null)
+            authContext.loadUser();
+        if (bootcamps === null)
             loadBootcamp();
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bootcamps])
+    }, [])
 
     return (
         <section className="container mt-5">
@@ -82,18 +90,18 @@ const manageBootcamp = (props) => {
                             <div className="card mb-3">
                                 <div className="row no-gutters">
                                     <div className="col-md-4">
-                                        <img src={uploadedFile === {} ? uploadedFile.filePath : `./uploads/photo_${bootcamps.data.id}.jpg`} className="card-img" alt="..." />
+                                        <img src={bootcamps === null ? `./uploads/no-photo.jpg` : `./uploads/${bootcamps.data.photo}`} className="card-img" alt="..." />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                <Link to={`/bootcamp/${bootcamps.data.id}`}>{bootcamps.data.name ? bootcamps.data.name : "BootCamp"} Bootcamp
-													<span className="float-right badge badge-success">{bootcamps.data.averageRating ? bootcamps.data.averageRating : "Not rated yet"}</span></Link>
+                                                {bootcamps !== null ? (<Link to={`/bootcamp/${bootcamps.data.id}`}>{bootcamps !== null ? bootcamps.data.name : "BootCamp"} Bootcamp
+                                                    <span className="float-right badge badge-success">{bootcamps !== null ? bootcamps.data.averageRating : "Not rated yet"}</span></Link>) : null}
                                             </h5>
-                                            <span className="badge badge-dark mb-2">{bootcamps.data.city ? bootcamps.data.city : " "},{bootcamps.data.country ? bootcamps.data.country : "EG"}</span>
+                                            <span className="badge badge-dark mb-2">{bootcamps !== null ? bootcamps.data.city : " "},{bootcamps !== null ? bootcamps.data.country : "EG"}</span>
                                             <p className="card-text">
                                                 {
-                                                    bootcamps.data.careers ? bootcamps.data.careers.join('-') : "other careers"
+                                                    bootcamps !== null ? bootcamps.data.careers.join('-') : "other careers"
                                                 }
                                             </p>
                                         </div>
@@ -116,10 +124,8 @@ const manageBootcamp = (props) => {
                                 <input type="submit" className="btn btn-light btn-block" value="Upload Image" />
                             </form>
                             <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link>
-                            {(bootcamps.data.courses.lenght !== 0) ? <Link to={{
-                                pathname: '/manage-courses',
-                                data: { bootcamps }
-                            }} className="btn btn-secondary btn-block">Manage Courses</Link> : null}
+                            <Link to="/manage-courses"
+                                className="btn btn-secondary btn-block">Manage Courses</Link>
                             <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
                             <button className="btn btn-danger btn-block" onClick={() => DeleteBootcamp()}>Remove Bootcamp</button>
                         </div>
