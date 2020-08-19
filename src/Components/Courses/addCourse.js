@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import bootcampContext from '../../context/bootcamp/bootcampContext'
+import authContext from '../../context/auth/authContext'
 import courseContext from '../../context/course/courseContext'
 
 
@@ -12,9 +14,11 @@ import withReactContent from 'sweetalert2-react-content'
 const addCourse = (props) => {
     const BootcampContext = useContext(bootcampContext);
     const CourseContext = useContext(courseContext);
+    const AuthContext = useContext(authContext);
+
     const MySwal = withReactContent(Swal);
     const { bootcamps, loadBootcamp } = BootcampContext;
-    const { createCourse, create_successful,restFLags } = CourseContext;
+    const { createCourse, create_successful, restFLags } = CourseContext;
     const [course, setCourse] = useState({
         title: '',
         weeks: '',
@@ -24,18 +28,23 @@ const addCourse = (props) => {
         scholarshipAvailable: false,
     });
     useEffect(() => {
+        if (AuthContext.user === null)
+            AuthContext.loadUser();
         if (bootcamps == null) {
             loadBootcamp();
         }
+    }, [])
+    useEffect(() => {
+
         if (create_successful) {
             createCourseDone();
             restFLags();
             props.history.push('/manage-courses');
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [create_successful, bootcamps])
-
+    const handleChecked = e => {
+        setCourse({ ...course, [e.target.name]: e.target.checked })
+    }
     function createCourseDone() {
         MySwal.fire(
             `Course ${title} created Successfully`,
@@ -54,7 +63,7 @@ const addCourse = (props) => {
             minimumSkill,
             description,
             scholarshipAvailable
-        },bootcamps.data._id)
+        }, bootcamps.data._id)
     }
 
     return (
@@ -66,7 +75,7 @@ const addCourse = (props) => {
                             <Link
                                 to="/manage-courses"
                                 className="btn btn-link text-secondary my-3"><i className="fas fa-chevron-left"></i> Manage Courses</Link>
-                            <h1 className="mb-2">{bootcamps.data.name ? bootcamps.data.name : "Bootcamp Name"}</h1>
+                            <h1 className="mb-2">{bootcamps !== null ? bootcamps.data.name : "Bootcamp Name"}</h1>
                             <h3 className="text-primary mb-4">Add Course</h3>
                             <form onSubmit={onSubmit}>
                                 <div className="form-group">
@@ -133,7 +142,7 @@ const addCourse = (props) => {
                                         type="checkbox"
                                         name="scholarshipAvailable"
                                         id="scholarshipAvailable"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="scholarshipAvailable">
                                         Scholarship Available

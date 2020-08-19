@@ -15,7 +15,7 @@ export default (state, action) => {
             };
         case USER_REVIEWS: return {
             ...state,
-            reviews: action.payload
+            user_reviews: action.payload
         };
         case RESET: return {
             ...state,

@@ -1,21 +1,52 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 
 import bootcampContext from '../../context/bootcamp/bootcampContext'
 import { Link } from "react-router-dom"
 import AuthContext from '../../context/auth/authContext'
+import ReviewContext from '../../context/review/reviewContext'
 const singleBootcamp = ({ match }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const BootcampContext = useContext(bootcampContext);
     const authContext = useContext(AuthContext);
+    const reviewContext = useContext(ReviewContext);
     const { bootcamps, fetchBootcamp } = BootcampContext;
     const { user } = authContext;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [ReviewButton, setReviewButton] = useState(true);
+  
+
+
+    //mounting
     useEffect(() => {
         fetchBootcamp(match.params.bootcampId);
+        if (authContext.user === null)
+            authContext.loadUser();
+       
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if (localStorage.getItem('token'))
+            reviewContext.getUserReviews();
+    }, [])
+    const UserReview = () => {
+        reviewContext.user_reviews.forEach(rev => {
+            if (rev.bootcamp.id === match.params.bootcampId)
+                {
+                    setReviewButton(false);
+                }
+        });
+    }
+    useEffect(() => {
+        if (reviewContext.user_reviews !== null) {
+            UserReview();
+            
+        }
+    }, [reviewContext.user_reviews])
+
     return (
         <section className="bootcamp mt-5">
             <div className="container">
@@ -48,11 +79,12 @@ const singleBootcamp = ({ match }) => {
 
                         }
                     </div>
+
                     <div className="col-md-4 mt-5">
                         <img style={{ with: "200px", height: "200px" }} src={bootcamps ? `/uploads/${bootcamps.data.photo}` : '/uploads/no-photo.jpg'} className="card-img" alt="..." />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
                         <a href="reviews.html" className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</a>
-                        {user && user.data.role === 'user' ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>
+                        {user && user.data.role === 'user' && ReviewButton ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>
                             : null}
                         <a href={bootcamps ? bootcamps.data.website : "/!"} className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
                         <ul className="list-group list-group-flush mt-4">

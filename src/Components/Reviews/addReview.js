@@ -8,11 +8,11 @@ import { Link } from "react-router-dom"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const addReview = ({ match }) => {
+const addReview = (props) => {
 	const BootcampContext = useContext(bootcampContext);
 	const ReviewContext = useContext(reviewContext);
 	const { bootcamps, fetchBootcamp } = BootcampContext;
-	const { AddReview, create_successful, resetFlags } = ReviewContext;
+	const { AddReview, create_successful, resetFlags, getUserReviews } = ReviewContext;
 	const MySwal = withReactContent(Swal)
 	const [review, setReview] = useState({
 		title: '',
@@ -22,13 +22,15 @@ const addReview = ({ match }) => {
 	const { title, text, rating } = review;
 
 	useEffect(() => {
-		fetchBootcamp(match.params.bootcampId)
+		fetchBootcamp(props.match.params.bootcampId)
 	}, [])
 
 	useEffect(() => {
 		if (create_successful) {
 			createReviewDone();
 			resetFlags();
+			props.history.push(`/bootcamp/${props.match.params.bootcampId}`)
+
 		};
 
 	}, [create_successful])
@@ -40,7 +42,7 @@ const addReview = ({ match }) => {
 			title,
 			text,
 			rating
-		}, match.params.bootcampId)
+		}, props.match.params.bootcampId)
 	}
 
 	function createReviewDone() {
@@ -56,7 +58,7 @@ const addReview = ({ match }) => {
 				<div className="col-md-8 m-auto">
 					<div className="card bg-white py-2 px-4 mt-5">
 						<div className="card-body">
-							<Link to={`/bootcamp/${match.params.bootcampId}`} className="btn btn-link text-secondary my-3"><i className="fas fa-chevron-left"></i> Bootcamp Info</Link>
+							<Link to={`/bootcamp/${props.match.params.bootcampId}`} className="btn btn-link text-secondary my-3"><i className="fas fa-chevron-left"></i> Bootcamp Info</Link>
 							<h1 className="mb-2">{bootcamps ? bootcamps.data.name : "bootcamp name"}</h1>
 							<h3 className="text-primary mb-4">Write a Review</h3>
 							<p>

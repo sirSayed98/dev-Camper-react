@@ -42,6 +42,7 @@ const register = (props) => {
                 name, email, password, role
             })
             RegisterDone();
+            props.history.push('/');
 
         }
     }

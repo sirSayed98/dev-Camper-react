@@ -14,7 +14,7 @@ import {
 
 const ReviewState = props => {
     const initialState = {
-        reviews: [],
+        user_reviews: [],
         review: null,
         create_successful: false
     };
@@ -74,7 +74,7 @@ const ReviewState = props => {
     return (
         <reviewContext.Provider
             value={{
-                reviews: state.reviews,
+                user_reviews: state.user_reviews,
                 review: state.review,
                 create_successful: state.create_successful,
                 AddReview,
