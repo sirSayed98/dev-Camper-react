@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useState, useEffect } from 'react'
 import MultiSelect from "react-multi-select-component";
@@ -37,15 +38,18 @@ const createBootcamp = (props) => {
     });
     let [selected, setSelected] = useState([]);
 
-    const { Create, bootcamps} = BootcampContext;
+    const { Create, bootcamps } = BootcampContext;
+
+    useEffect(() => {
+        authContext.loadUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     useEffect(() => {
         if (bootcamps != null) {
 
             createBootcampDone()
             props.history.push('/');
         }
-
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bootcamps])
 
@@ -61,19 +65,16 @@ const createBootcamp = (props) => {
 
     const onChange = e => setBootcamp({ ...bootcamp, [e.target.name]: e.target.value });
 
+    const handleChecked = e => {
+        setBootcamp({ ...bootcamp, [e.target.name]: e.target.checked })
+    }
     const onSubmit = e => {
         e.preventDefault();
         for (let index = 0; index < selected.length; index++) {
             careers.push(selected[index].value)
         }
-
-        bootcamp.housing = housing === "on" ? true : false
-        bootcamp.jobAssistance = jobAssistance === "on" ? true : false
-        bootcamp.jobGuarantee = jobGuarantee === "on" ? true : false
-        bootcamp.acceptGi = acceptGi === "on" ? true : false
-
-
         bootcamp.user = authContext.user.data._id
+
         Create({
             name, description, website, phone, email, address, careers, housing, jobAssistance, jobGuarantee, acceptGi,
         })
@@ -83,8 +84,8 @@ const createBootcamp = (props) => {
     return (
         <section className="container mt-5">
             <div className="mt-5">
-                <h1>Add Bootcamp</h1>
-                <p>Important: You must be affiliated with a bootcamp to add to DevCamper</p>
+                <h1 className="text-center" style={{ marginTop: "100px" }}>Add Bootcamp</h1>
+                <p className="text-center">Important: You must be affiliated with a bootcamp to add to DevCamper</p>
             </div>
             <form onSubmit={onSubmit}>
                 <div className="row">
@@ -183,7 +184,7 @@ const createBootcamp = (props) => {
                                         type="checkbox"
                                         name="housing"
                                         id="housing"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="housing">
                                         Housing
@@ -195,7 +196,7 @@ const createBootcamp = (props) => {
                                         type="checkbox"
                                         name="jobAssistance"
                                         id="jobAssistance"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="jobAssistance">
                                         Job Assistance
@@ -207,7 +208,7 @@ const createBootcamp = (props) => {
                                         type="checkbox"
                                         name="jobGuarantee"
                                         id="jobGuarantee"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="jobGuarantee">
                                         Job Guarantee
@@ -219,7 +220,7 @@ const createBootcamp = (props) => {
                                         type="checkbox"
                                         name="acceptGi"
                                         id="acceptGi"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="acceptGi">
                                         Accepts GI Bill
@@ -242,6 +243,7 @@ const createBootcamp = (props) => {
 
                 </div>
             </form>
+        
         </section>
 
     )
