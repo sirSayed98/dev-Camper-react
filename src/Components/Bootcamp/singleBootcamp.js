@@ -31,7 +31,7 @@ const singleBootcamp = ({ match }) => {
                         <p className="lead mb-4">Average Course Cost: <span className="text-primary">{(bootcamps !== null) ? bootcamps.data.averageCost : "0.0"}</span></p>
                         {/* <!-- Courses --> */}
                         {
-                            (bootcamps !== null && bootcamps !== undefined) ? bootcamps.data.courses.map(course => {
+                            (bootcamps !== null && bootcamps.data.courses.length !== 0) ? bootcamps.data.courses.map(course => {
                                 return (<div className="card mb-3" key={course._id}>
                                     <h5 className="card-header bg-primary text-white">{course.title}</h5>
                                     <div className="card-body">
@@ -48,13 +48,13 @@ const singleBootcamp = ({ match }) => {
 
                         }
                     </div>
-                    <div className="col-md-4">
-                    <img src={bootcamps ? `./uploads/photo_${bootcamps.data.id}.jpg`:null} className="card-img" alt="..." />
+                    <div className="col-md-4 mt-5">
+                        <img style={{ with: "200px", height: "200px" }} src={bootcamps ? `/uploads/${bootcamps.data.photo}` : '/uploads/no-photo.jpg'} className="card-img" alt="..." />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
                         <a href="reviews.html" className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</a>
                         {user && user.data.role === 'user' ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>
                             : null}
-                        <a href="#!" target="_blank" className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
+                        <a href={bootcamps ? bootcamps.data.website : "/!"} className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
                         <ul className="list-group list-group-flush mt-4">
                             <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.housing ? "text-success" : "text-danger"}` : null}></i> Housing</li>
                             <li className="list-group-item"><i className={(bootcamps !== null) ? `fas fa-check ${bootcamps.data.jobAssistance ? "text-success" : "text-danger"}` : null}></i> Job Assistance</li>

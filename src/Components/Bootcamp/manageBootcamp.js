@@ -41,7 +41,6 @@ const manageBootcamp = (props) => {
                 `Upload photo ${fileName} Successfully`,
                 'It will take some time to change it!',
                 'success');
-            loadBootcamp();
         } catch (err) {
             if (err.response.status === 500) {
                 console.log('There was a problem with the server');
