@@ -20,3 +20,5 @@ export const DELETE_BOOTCAMP = 'DELETE_BOOTCAMP';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const USER_REVIEWS = 'USER_REVIEWS';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
+export const GET_SINGLE_REVIEW = 'GET_SINGLE_REVIEW';
+export const EDIT_REVIEW = 'EDIT_REVIEW';

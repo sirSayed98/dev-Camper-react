@@ -2,7 +2,9 @@ import {
     ADD_REVIEW,
     USER_REVIEWS,
     DELETE_REVIEW,
-    RESET
+    GET_SINGLE_REVIEW,
+    RESET,
+    EDIT_REVIEW
 } from '../types';
 
 export default (state, action) => {
@@ -19,13 +21,22 @@ export default (state, action) => {
         };
         case RESET: return {
             ...state,
-            create_successful: false
+            create_successful: false,
+            edit_successful: false
         };
         case DELETE_REVIEW: return {
             ...state,
-            reviews: state.reviews.filter(
+            user_reviews: state.user_reviews.filter(
                 review => review._id !== action.payload
             ),
+        }
+        case GET_SINGLE_REVIEW: return {
+            ...state,
+            review: action.payload
+        }
+        case EDIT_REVIEW: return {
+            ...state,
+            edit_successful: true
         }
         default:
             return state;

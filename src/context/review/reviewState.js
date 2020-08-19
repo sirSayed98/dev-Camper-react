@@ -8,7 +8,9 @@ import {
     ADD_REVIEW,
     USER_REVIEWS,
     DELETE_REVIEW,
-    RESET
+    RESET,
+    EDIT_REVIEW,
+    GET_SINGLE_REVIEW
 } from '../types';
 
 
@@ -16,7 +18,8 @@ const ReviewState = props => {
     const initialState = {
         user_reviews: [],
         review: null,
-        create_successful: false
+        create_successful: false,
+        edit_successful:false
     };
     const [state, dispatch] = useReducer(reviewReducer, initialState);
 
@@ -39,7 +42,7 @@ const ReviewState = props => {
             console.log(error.response.data)
         }
     }
-    
+
     const getUserReviews = async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/v1/reviews/myreviews`);
@@ -54,13 +57,13 @@ const ReviewState = props => {
 
     const deleteReview = async (reviewID) => {
         try {
-             await axios.delete(`http://localhost:5000/api/v1/reviews/${reviewID}`);
+            await axios.delete(`http://localhost:5000/api/v1/reviews/${reviewID}`);
             dispatch({
                 type: DELETE_REVIEW,
                 payload: reviewID
             });
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error)
         }
     }
     const resetFlags = () => {
@@ -68,7 +71,29 @@ const ReviewState = props => {
             type: RESET
         })
     }
+    const getSingleReview = async (reviewID) => {
+        try {
+           const res = await axios.get(`http://localhost:5000/api/v1/reviews/${reviewID}`);
+            dispatch({
+                type: GET_SINGLE_REVIEW,
+                payload: res.data.data
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const EditReview =async(formData,reviewID)=>{
+        try {
+            const res = await axios.put(`http://localhost:5000/api/v1/reviews/${reviewID}`,formData);
+             dispatch({
+                 type: EDIT_REVIEW,
+                 payload: res.data
+             });
+         } catch (error) {
+             console.log(error)
+         }
 
+    }
 
 
     return (
@@ -77,10 +102,13 @@ const ReviewState = props => {
                 user_reviews: state.user_reviews,
                 review: state.review,
                 create_successful: state.create_successful,
+                edit_successful:state.edit_successful,
                 AddReview,
                 getUserReviews,
                 deleteReview,
-                resetFlags
+                resetFlags,
+                getSingleReview,
+                EditReview 
             }}
         >
             {props.children}

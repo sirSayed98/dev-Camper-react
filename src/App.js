@@ -21,6 +21,7 @@ import addCourse from './Components/Courses/addCourse'
 import editCourse from './Components/Courses/editCourse'
 import manageAccount from './Components/account/manageAccount'
 import addReview from './Components/Reviews/addReview'
+import editReview from './Components/Reviews/editReview'
 
 import './App.css';
 import './bootstrap.css'
@@ -37,6 +38,7 @@ const App = () => {
                 <PrivateRoute exact path="/create-Bootcamp" component={createBootcamp} />
                 <PrivateRoute exact path="/add-course" component={addCourse} />
                 <PrivateRoute exact path="/edit-course/:courseId" component={editCourse} />
+                <PrivateRoute exact path="/edit-review/:reviewId" component={editReview} />
                 <PrivateRoute exact path="/manage-courses" component={manageCourses} />
                 <PrivateRoute exact path="/manage-Reviews" component={manageReviews} />
                 <PrivateRoute exact path="/manage-Bootcamp" component={manageBootcamp} />

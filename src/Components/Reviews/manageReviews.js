@@ -6,16 +6,21 @@ import reviewContext from '../../context/review/reviewContext'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
+import authContext from '../../context/auth/authContext'
+import { Link } from 'react-router-dom'
 const manageReviews = () => {
     const ReviewContext = useContext(reviewContext);
-    const { reviews, getUserReviews, deleteReview } = ReviewContext;
+    const AuthContext = useContext(authContext);
+    const { user_reviews, getUserReviews, deleteReview } = ReviewContext;
     const MySwal = withReactContent(Swal);
-    useEffect(() => {
-        getUserReviews();
-    },[])
 
-    function DeleteReview(reviewID,name) {
+    useEffect(() => {
+        if (AuthContext.user === null)
+            AuthContext.loadUser();
+        getUserReviews();
+    }, [])
+
+    function DeleteReview(reviewID, name) {
         MySwal.fire({
             title: `Do you want to delete review of ${name} bootcamp ? `,
             text: "You won't be able to revert this!",
@@ -52,14 +57,14 @@ const manageReviews = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        (reviews !== null && reviews !== undefined) ? reviews.map(course => {
+                                        (user_reviews !== null && user_reviews !== undefined) ? user_reviews.map(review => {
                                             return (
                                                 <tr>
-                                                    <td>{course.bootcamp.name}</td>
-                                                    <td>{course.rating}</td>
+                                                    <td>{review.bootcamp.name}</td>
+                                                    <td>{review.rating}</td>
                                                     <td>
-                                                        <a href="add-review.html" className="btn btn-secondary"><i className="fas fa-pencil-alt"></i></a>
-                                                        <button className="btn btn-danger" onClick={() =>DeleteReview(course._id,course.bootcamp.name)}>
+                                                        <Link to={`/edit-review/${review._id}`} className="btn btn-secondary"><i className="fas fa-pencil-alt"></i></Link>
+                                                        <button className="btn btn-danger" onClick={() => DeleteReview(review._id, review.bootcamp.name)}>
                                                             <i className="fas fa-times"></i>
                                                         </button>
                                                     </td>
