@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/auth/authContext';
@@ -14,6 +15,12 @@ const login = (props) => {
     let { Login, error, isAuthenticated} = authContext;
     const MySwal = withReactContent(Swal)
 
+
+    useEffect(() => {
+        if(localStorage.getItem('token')!== null)
+        props.history.push('/');
+
+    },[])
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         if (isAuthenticated) {

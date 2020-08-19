@@ -8,7 +8,7 @@ const Navbar = (props) => {
     const BootcampContext = useContext(bootcampContext);
 
     let { bootcamps, loadBootcamp, resetFlags } = BootcampContext;
-    let { isAuthenticated, user, logout } = AuthContext;
+    let { user, logout } = AuthContext;
 
     const onLogout = () => {
         logout();
@@ -47,7 +47,7 @@ const Navbar = (props) => {
                     role="button"
                     data-toggle="dropdown"
                     href="/">
-                    <i className="fas fa-user"></i> {(!user) ? "Account" : user.data.name}
+                    <i className="fas fa-user"></i> {localStorage.getItem('name')!==null ? localStorage.getItem('name'):"Account"}
                 </a>
                 <div className="dropdown-menu">
                     {
@@ -87,7 +87,7 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
 
-                        {!isAuthenticated ? guest : authUser}
+                        {localStorage.getItem('token') ? authUser:guest}
                         <li className="nav-item d-none d-sm-block">
                             <Link className="nav-link" to="#"></Link>
                         </li>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import AuthContext from '../context/auth/authContext';
@@ -12,13 +13,13 @@ const register = (props) => {
 
     const { Register, error, isAuthenticated } = authContext;
     const MySwal = withReactContent(Swal);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-        if (isAuthenticated)
-            props.history.push('/');
-        //eslint-disable-next-line
-    }, [error, isAuthenticated, props.history]);
 
+    useEffect(() => {
+        if(localStorage.getItem('token')!== null)
+        props.history.push('/');
+
+    },[])
+   
     const [user, setUser] = useState({
         name: '',
         email: '',
