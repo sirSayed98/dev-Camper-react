@@ -2,14 +2,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from 'react'
 import bootcampContext from '../../context/bootcamp/bootcampContext'
-import { Link} from'react-router-dom'
+import { Link } from 'react-router-dom'
 const BootcampReviews = (props) => {
     const BootcampContext = useContext(bootcampContext);
-    const { bootcamp_reviews, getBootcampReviews, loadBootcamp, bootcamps } = BootcampContext;
+    const { bootcamp_reviews, getBootcampReviews } = BootcampContext;
 
     useEffect(() => {
         getBootcampReviews(props.match.params.bootcampId);
-        loadBootcamp(props.match.params.bootcampId);
+        // bootcamp_reviews contain all data about user and bootcamp
     }, [])
 
     return (
@@ -17,71 +17,41 @@ const BootcampReviews = (props) => {
             <section className="bootcamp mt-5">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-8">
+                        <div className="col-md-8 mt-5">
                             <Link
-                               to={`bootcamp/props.match.params.bootcampId`}
-                                target="_blank"
+                                to={`/bootcamp/${props.match.params.bootcampId}`}
                                 className="btn btn-secondary my-3"
                             ><i className="fas fa-chevron-left"></i> Bootcamp Info</Link>
-                            
-                            <h1 className="mb-4">DevWorks Bootcamp Reviews</h1>
-                            {/* <!-- Reviews --> */}
-                            <div className="card mb-3">
-                                <h5 className="card-header bg-dark text-white">Fantastic Bootcamp</h5>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Rating: <span className="text-success">10</span>
-                                    </h5>
-                                    <p className="card-text">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                        Commodi similique mollitia, praesentium, animi harum officia
-                                        dolores corporis ex tempore consequuntur dolorem ullam dolorum
-                                        magnam corrupti quaerat tempora repudiandae! Similique,
-                                        molestiae. Iste, blanditiis recusandae unde tenetur eius
-                                        exercitationem rerum a fuga.
-								</p>
-                                    <p className="text-muted">Writtern By Kevin Smith</p>
-                                </div>
-                            </div>
 
-                            <div className="card mb-3">
-                                <h5 className="card-header bg-dark text-white">Learned a Lot</h5>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Rating: <span className="text-success">9</span>
-                                    </h5>
-                                    <p className="card-text">
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                        Commodi similique mollitia, praesentium, animi harum officia
-                                        dolores corporis ex tempore consequuntur dolorem ullam dolorum
-                                        magnam corrupti quaerat tempora repudiandae! Similique,
-                                        molestiae. Iste, blanditiis recusandae unde tenetur eius
-                                        exercitationem rerum a fuga.
-								</p>
-                                    <p className="text-muted">Writtern By Jill Samson</p>
-                                </div>
-                            </div>
+                            <h1 className="mb-4">{(bootcamp_reviews !== null&&bootcamp_reviews.length !== 0) ? bootcamp_reviews[0].bootcamp.name : null}</h1>
+                            {/* <!-- Reviews --> */}
+                            {(bootcamp_reviews !== null&&bootcamp_reviews.length !== 0) ? bootcamp_reviews.map(el => {
+                                return (<div className="card mb-3">
+                                    <h5 className="card-header bg-dark text-white">{el.title}</h5>
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            Rating: <span className="text-success text-capitalize">{el.rating}</span>
+                                        </h5>
+                                        <p className="card-text">
+                                            {el.text}
+                                        </p>
+                                        <p className="text-muted">Writtern By {el.user.name}</p>
+                                    </div>
+                                </div>)
+                            }) : <h1> No Reviews available for this bootcamp </h1>}
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-md-4 mt-5">
 
                             <h1 className="text-center my-4">
                                 <span
-                                    className="badge badge-secondary badge-success rounded-circle p-3"
-                                >8.8</span
-                                >
+                                    className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamp_reviews !== null&&bootcamp_reviews.length !== 0) ? bootcamp_reviews[0].bootcamp.averageRating : 0}</span>
 							Rating
 						</h1>
-
-                            <a href="add-review.html" className="btn btn-primary btn-block my-3"
-                            ><i className="fas fa-pencil-alt"></i> Review This Bootcamp</a
-                            >
                         </div>
                     </div>
                 </div>
             </section>
-
-
         </>
     )
 }

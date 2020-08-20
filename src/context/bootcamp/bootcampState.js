@@ -18,7 +18,7 @@ const BootCampState = props => {
     const initialState = {
         bootcamps: null,
         allBootcamps: [],
-        bootcamp_reviews: []
+        bootcamp_reviews: null
     };
     const [state, dispatch] = useReducer(bootcampReducer, initialState);
 
