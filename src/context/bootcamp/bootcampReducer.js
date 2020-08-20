@@ -3,7 +3,8 @@ import {
     LOAD_BOOTCAMP,
     GET_ALL_BOOTCAMPS,
     RESET,
-    DELETE_BOOTCAMP
+    DELETE_BOOTCAMP,
+    GET_BOOTCAMP_REVIEWS
 } from '../types';
 
 export default (state, action) => {
@@ -33,6 +34,10 @@ export default (state, action) => {
                     bootcamp => bootcamp._id !== action.payload
                 )
             }
+        case GET_BOOTCAMP_REVIEWS: return {
+            ...state,
+            bootcamp_reviews: action.payload
+        }
         default:
             return state;
     }

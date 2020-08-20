@@ -9,14 +9,16 @@ import {
     LOAD_BOOTCAMP,
     GET_ALL_BOOTCAMPS,
     RESET,
-    DELETE_BOOTCAMP
+    DELETE_BOOTCAMP,
+    GET_BOOTCAMP_REVIEWS
 } from '../types';
 
 
 const BootCampState = props => {
     const initialState = {
         bootcamps: null,
-        allBootcamps: []
+        allBootcamps: [],
+        bootcamp_reviews: []
     };
     const [state, dispatch] = useReducer(bootcampReducer, initialState);
 
@@ -74,6 +76,17 @@ const BootCampState = props => {
             console.log(error.response.data)
         }
     }
+    const getBootcampReviews = async (id) => {
+        try {
+            const res = await axios.get(`http://localhost:5000/api/v1/bootcamps/${id}/reviews`);
+            dispatch({
+                type: GET_BOOTCAMP_REVIEWS,
+                payload: Object.values(res.data.data)
+            });
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
 
     const deleteBootcamp = async (bootcampId) => {
         try {
@@ -98,12 +111,14 @@ const BootCampState = props => {
             value={{
                 bootcamps: state.bootcamps,
                 allBootcamps: state.allBootcamps,
+                bootcamp_reviews: state.bootcamp_reviews,
                 Create,
                 loadBootcamp,
                 fetchBootcamp,
                 getALLBootcamps,
                 resetFlags,
-                deleteBootcamp
+                deleteBootcamp,
+                getBootcampReviews
             }}
         >
             {props.children}

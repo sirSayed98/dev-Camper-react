@@ -16,7 +16,7 @@ const singleBootcamp = ({ match }) => {
     const { bootcamps, fetchBootcamp } = BootcampContext;
     const { user } = authContext;
     const [ReviewButton, setReviewButton] = useState(true);
-  
+
 
 
     //mounting
@@ -24,7 +24,7 @@ const singleBootcamp = ({ match }) => {
         fetchBootcamp(match.params.bootcampId);
         if (authContext.user === null)
             authContext.loadUser();
-       
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -34,16 +34,15 @@ const singleBootcamp = ({ match }) => {
     }, [])
     const UserReview = () => {
         reviewContext.user_reviews.forEach(rev => {
-            if (rev.bootcamp.id === match.params.bootcampId)
-                {
-                    setReviewButton(false);
-                }
+            if (rev.bootcamp.id === match.params.bootcampId) {
+                setReviewButton(false);
+            }
         });
     }
     useEffect(() => {
         if (reviewContext.user_reviews !== null) {
             UserReview();
-            
+
         }
     }, [reviewContext.user_reviews])
 
@@ -83,7 +82,7 @@ const singleBootcamp = ({ match }) => {
                     <div className="col-md-4 mt-5">
                         <img style={{ with: "200px", height: "200px" }} src={bootcamps ? `/uploads/${bootcamps.data.photo}` : '/uploads/no-photo.jpg'} className="card-img" alt="..." />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
-                        <a href="reviews.html" className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</a>
+                        <Link to={`/bootcamp/${match.params.bootcampId}/reviews`} className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</Link>
                         {user && user.data.role === 'user' && ReviewButton ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>
                             : null}
                         <a href={bootcamps ? bootcamps.data.website : "/!"} className="btn btn-secondary btn-block my-3"><i className="fas fa-globe"></i>  Visit Website</a>
