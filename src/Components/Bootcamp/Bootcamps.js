@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useContext } from 'react'
 import SearchBylocation from './SearchBylocation'
-import Filter from './SearchBylocation'
+import Filter from './Filter'
 import Bootcamp from './Bootcamp'
 import bootcampContext from '../../context/bootcamp/bootcampContext'
 

@@ -21,6 +21,7 @@ const createBootcamp = (props) => {
         { label: "Data Science", value: "Data Science" },
         { label: "Business", value: "Business" },
         { label: "Other", value: "Other" },
+        { label: "Languages", value: "Languages" },
     ];
     let [bootcamp, setBootcamp] = useState({
         name: '',

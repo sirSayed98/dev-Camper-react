@@ -97,7 +97,7 @@ const manageBootcamp = (props) => {
                                                 {bootcamps !== null ? (<Link to={`/bootcamp/${bootcamps.data.id}`}>{bootcamps !== null ? bootcamps.data.name : "BootCamp"} Bootcamp
                                                     <span className="float-right badge badge-success">{bootcamps !== null ? bootcamps.data.averageRating : "Not rated yet"}</span></Link>) : null}
                                             </h5>
-                                            <span className="badge badge-dark mb-2">{bootcamps !== null ? bootcamps.data.city : " "},{bootcamps !== null ? bootcamps.data.country : "EG"}</span>
+                                            <span className="badge badge-dark mb-2">{bootcamps !== null ? bootcamps.data.location.city : "Los Anglos"},{bootcamps !== null ? bootcamps.data.location.country : "Us"}</span>
                                             <p className="card-text">
                                                 {
                                                     bootcamps !== null ? bootcamps.data.careers.join('-') : "other careers"

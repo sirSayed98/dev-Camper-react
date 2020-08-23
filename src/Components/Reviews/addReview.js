@@ -67,9 +67,10 @@ const addReview = (props) => {
 							<form onSubmit={onSubmit}>
 								<div className="form-group">
 									<label htmlFor="rating">Rating: <span className="text-primary">{rating}</span></label>
+									
 									<input
 										type="range"
-										className="custom-range"
+										className="custom-range ml-5"
 										min="1"
 										max="10"
 										step="1"
