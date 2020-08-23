@@ -15,7 +15,8 @@ import {
     EDIT_USER,
     RESET,
     UPDATE_PASSWORD,
-    FAIL_UPDATE_PASSWORD
+    FAIL_UPDATE_PASSWORD,
+    FORGET_PASSWORD
 } from '../types';
 
 
@@ -25,7 +26,8 @@ const AuthState = props => {
         isAuthenticated: null,
         edit_successful: false,
         error: null,
-        user: null
+        user: null,
+        forgetPasswordMessage:''
     };
     const [state, dispatch] = useReducer(authReducer, initialState);
 
@@ -125,7 +127,17 @@ const AuthState = props => {
             })
         }
     }
-
+    const ForgetPassword = async (formData)=>{
+        try {
+            const res = await axios.post(`http://localhost:5000/api/v1/auth/forgotpassword`,formData);
+            dispatch({
+                type: FORGET_PASSWORD,
+                payload: res.data.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
     // logout user
     const logout = () => {
         dispatch({ type: LOGOUT })
@@ -139,13 +151,15 @@ const AuthState = props => {
                 error: state.error,
                 user: state.user,
                 edit_successful: state.edit_successful,
+                forgetPasswordMessage: state.forgetPasswordMessage,
                 Register,
                 Login,
                 loadUser,
                 logout,
                 editUser,
                 restFLags,
-                UpdatePassword
+                UpdatePassword,
+                ForgetPassword,
             }}
         >
             {props.children}

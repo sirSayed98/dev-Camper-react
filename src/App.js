@@ -47,7 +47,7 @@ const App = () => {
                 <Route exact path="/bootcamp/:bootcampId/reviews" component={BootcampReviews} />
                 <Route exact path="/" component={home} />
                 <Route exact path="/login" component={login} />
-                <PrivateRoute exact path="/reset-password" component={resetPassword} />
+                <Route exact path="/reset-password" component={resetPassword} />
                 <PrivateRoute exact path="/update-Password" component={updatePassword} />
                 <PrivateRoute exact path="/manage-Account" component={manageAccount} />
                 <Route exact path="/register" component={register} />

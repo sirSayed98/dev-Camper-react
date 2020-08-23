@@ -9,7 +9,8 @@ import {
     EDIT_USER,
     RESET,
     UPDATE_PASSWORD,
-    FAIL_UPDATE_PASSWORD
+    FAIL_UPDATE_PASSWORD,
+    FORGET_PASSWORD
 } from '../types';
 
 export default (state, action) => {
@@ -55,7 +56,9 @@ export default (state, action) => {
             return {
                 ...state,
                 edit_successful: false,
-                error: null
+                error: null,
+                forgetPasswordMessage: ""
+
             }
         case FAIL_UPDATE_PASSWORD:
             return {
@@ -67,7 +70,12 @@ export default (state, action) => {
                 ...state,
                 edit_successful: true
             };
+        case FORGET_PASSWORD: return {
+            ...state,
+            forgetPasswordMessage: action.payload
+        }
         default:
             return state;
+
     }
 }
