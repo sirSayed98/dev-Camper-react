@@ -24,7 +24,6 @@ import addReview from './Components/Reviews/addReview'
 import editReview from './Components/Reviews/editReview'
 import BootcampReviews from './Components/Reviews/BootcampReviews'
 import './App.css';
-import './bootstrap.css'
 const App = () => {
   return (
     <AuthState>

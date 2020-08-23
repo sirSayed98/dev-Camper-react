@@ -64,8 +64,9 @@ const resetPassword = () => {
             <>
                 <div style={{ height: '200px' }}></div>
                 <div className="mt-5">
-                    <h1 className="mt-5 text-center"> Check Your Email </h1>
-                    <h3 className="mt-5 text-center">{email}</h3>
+                    <h1 className='mt-5 text-center'> Email Sent Successfully !</h1>
+                    <h3 className="mt-5 text-center"> Check Your Email </h3>
+                    <h5 className="mt-5 text-center">{email}</h5>
                 </div>
             </>
         )
