@@ -10,7 +10,8 @@ import {
     GET_ALL_BOOTCAMPS,
     RESET,
     DELETE_BOOTCAMP,
-    GET_BOOTCAMP_REVIEWS
+    GET_BOOTCAMP_REVIEWS,
+    FILTER_BY_BUDGET_RATE
 } from '../types';
 
 
@@ -18,7 +19,8 @@ const BootCampState = props => {
     const initialState = {
         bootcamps: null,
         allBootcamps: [],
-        bootcamp_reviews: null
+        bootcamp_reviews: null,
+        searchBootcamp: null
     };
     const [state, dispatch] = useReducer(bootcampReducer, initialState);
 
@@ -104,7 +106,21 @@ const BootCampState = props => {
             type: RESET
         })
     }
-
+    const Filter = async (Rate,Budget) => {
+       
+        try {
+            const res = await axios.get(`http://localhost:5000/api/v1/bootcamps?averageRating[gte]=${Rate}&averageCost[gte]=${Budget}`);
+            dispatch({
+                type: FILTER_BY_BUDGET_RATE,
+                payload: Object.values(res.data.data)
+            });
+            console.log("------");
+            console.log(res.data);
+            console.log("++++");
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
 
     return (
         <bootcampContext.Provider
@@ -112,13 +128,15 @@ const BootCampState = props => {
                 bootcamps: state.bootcamps,
                 allBootcamps: state.allBootcamps,
                 bootcamp_reviews: state.bootcamp_reviews,
+                searchBootcamp: state.searchBootcamp,
                 Create,
                 loadBootcamp,
                 fetchBootcamp,
                 getALLBootcamps,
                 resetFlags,
                 deleteBootcamp,
-                getBootcampReviews
+                getBootcampReviews,
+                Filter
             }}
         >
             {props.children}

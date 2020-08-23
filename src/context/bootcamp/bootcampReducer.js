@@ -4,7 +4,8 @@ import {
     GET_ALL_BOOTCAMPS,
     RESET,
     DELETE_BOOTCAMP,
-    GET_BOOTCAMP_REVIEWS
+    GET_BOOTCAMP_REVIEWS,
+    FILTER_BY_BUDGET_RATE
 } from '../types';
 
 export default (state, action) => {
@@ -37,6 +38,10 @@ export default (state, action) => {
         case GET_BOOTCAMP_REVIEWS: return {
             ...state,
             bootcamp_reviews: action.payload
+        }
+        case FILTER_BY_BUDGET_RATE: return {
+            ...state,
+            searchBootcamp: action.payload
         }
         default:
             return state;
