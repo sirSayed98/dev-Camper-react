@@ -12,12 +12,21 @@ import withReactContent from 'sweetalert2-react-content'
 const manageAccount = () => {
     const AuthContext = useContext(authContext);
     const MySwal = withReactContent(Swal);
-    const { user,editUser, restFLags, edit_successful} = AuthContext;
+    const { user, editUser, restFLags, edit_successful, loadUser } = AuthContext;
     const [newUser, setNewUser] = useState({
         name: user ? user.data.name : "",
         email: user ? user.data.email : ""
     })
     const { name, email } = newUser;
+
+    useEffect(() => {
+        if (user === null) {
+            loadUser();
+        }
+        if (user !== null) {
+            setNewUser(user.data);
+        }
+    }, [user])
     useEffect(() => {
         if (edit_successful) {
             MySwal.fire(
@@ -36,6 +45,7 @@ const manageAccount = () => {
             name,
             email
         })
+        localStorage.setItem('name', name);
     }
     return (
         <section className="container mt-5">
