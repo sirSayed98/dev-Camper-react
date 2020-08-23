@@ -58,7 +58,9 @@ const editCourse = (props,match) => {
             scholarshipAvailable
         }, currentCourse.data._id)
     }
-
+    const handleChecked= e => {
+        setCourse({ ...course,[e.target.name]:e.target.checked})
+    }
     return (
         <section className="container mt-5">
             <div className="row">
@@ -138,7 +140,7 @@ const editCourse = (props,match) => {
                                         type="checkbox"
                                         name="scholarshipAvailable"
                                         id="scholarshipAvailable"
-                                        onChange={onChange}
+                                        onChange={handleChecked}
                                     />
                                     <label className="form-check-label" htmlFor="scholarshipAvailable">
                                         Scholarship Available
