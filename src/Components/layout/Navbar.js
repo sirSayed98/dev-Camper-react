@@ -12,8 +12,9 @@ const Navbar = (props) => {
 
     const onLogout = () => {
         logout();
+        window.location.reload(false);
     }
-   
+
 
     useEffect(() => {
         if (user != null) {
@@ -47,7 +48,7 @@ const Navbar = (props) => {
                     role="button"
                     data-toggle="dropdown"
                     href="/">
-                    <i className="fas fa-user"></i> {localStorage.getItem('name')!==null ? localStorage.getItem('name'):"Account"}
+                    <i className="fas fa-user"></i> {localStorage.getItem('name') !== null ? localStorage.getItem('name') : "Account"}
                 </a>
                 <div className="dropdown-menu">
                     {
@@ -87,7 +88,7 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
 
-                        {localStorage.getItem('token') ? authUser:guest}
+                        {localStorage.getItem('token') ? authUser : guest}
                         <li className="nav-item d-none d-sm-block">
                             <Link className="nav-link" to="#"></Link>
                         </li>
