@@ -26,4 +26,4 @@ export const GET_BOOTCAMP_REVIEWS = 'GET_BOOTCAMP_REVIEWS';
 export const FORGET_PASSWORD = 'FORGET_PASSWORD';
 export const FILTER_BY_BUDGET_RATE = 'FILTER_BY_BUDGET_RATE';
 export const FILTER_BY_LOCATION = 'FILTER_BY_LOCATION';
-export const BASE_URL = 'http://localhost:5000';
+export const BASE_URL = 'https://dev-camper-back.herokuapp.com';
