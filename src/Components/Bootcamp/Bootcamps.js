@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useContext } from 'react'
-import SearchBylocation from './SearchBylocation'
 import Filter from './Filter'
 import Bootcamp from './Bootcamp'
 import bootcampContext from '../../context/bootcamp/bootcampContext'
@@ -19,7 +18,6 @@ const Bootcamps = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 mt-5">
-                        <SearchBylocation />
                         <Filter />
                     </div>
                     <div className="col-md-8 mt-5">

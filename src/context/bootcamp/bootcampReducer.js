@@ -5,7 +5,8 @@ import {
     RESET,
     DELETE_BOOTCAMP,
     GET_BOOTCAMP_REVIEWS,
-    FILTER_BY_BUDGET_RATE
+    FILTER_BY_BUDGET_RATE,
+    FILTER_BY_LOCATION
 } from '../types';
 
 export default (state, action) => {
@@ -25,8 +26,8 @@ export default (state, action) => {
             return {
                 ...state,
                 allBootcamps: [],
-                bootcamps: null
-
+                bootcamps: null,
+                searchBootcamp: null
             }
         case DELETE_BOOTCAMP:
             return {
@@ -40,6 +41,12 @@ export default (state, action) => {
             bootcamp_reviews: action.payload
         }
         case FILTER_BY_BUDGET_RATE: return {
+            ...state,
+            searchBootcamp: state.allBootcamps.filter(
+                bootcamp => bootcamp.averageRating >= action.Rate && bootcamp.averageCost >= action.Budget
+            )
+        }
+        case FILTER_BY_LOCATION: return {
             ...state,
             searchBootcamp: action.payload
         }

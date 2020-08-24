@@ -15,7 +15,6 @@ const Filter = () => {
 
     const onSubmit = () => {
         Filter(rate, cost);
-
     }
     return (
         <Fragment>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import bootcampContext from './bootcampContext';
@@ -11,7 +12,8 @@ import {
     RESET,
     DELETE_BOOTCAMP,
     GET_BOOTCAMP_REVIEWS,
-    FILTER_BY_BUDGET_RATE
+    FILTER_BY_BUDGET_RATE,
+    FILTER_BY_LOCATION
 } from '../types';
 
 
@@ -107,16 +109,22 @@ const BootCampState = props => {
         })
     }
     const Filter = async (Rate,Budget) => {
-       
-        try {
-            const res = await axios.get(`http://localhost:5000/api/v1/bootcamps?averageRating[gte]=${Rate}&averageCost[gte]=${Budget}`);
             dispatch({
                 type: FILTER_BY_BUDGET_RATE,
+                Rate,
+                Budget
+            });
+        
+    }
+    const FilterLocation = async (Zipcode,Distance) => {
+       
+        try {
+            const res = await axios.get(`http://localhost:5000/api/v1/bootcamps/radius/${Zipcode}/${Distance}`);
+            dispatch({
+                type: FILTER_BY_LOCATION,
                 payload: Object.values(res.data.data)
             });
-            console.log("------");
-            console.log(res.data);
-            console.log("++++");
+
         } catch (error) {
             console.log(error.response)
         }
@@ -129,6 +137,7 @@ const BootCampState = props => {
                 allBootcamps: state.allBootcamps,
                 bootcamp_reviews: state.bootcamp_reviews,
                 searchBootcamp: state.searchBootcamp,
+                FilterLocation,
                 Create,
                 loadBootcamp,
                 fetchBootcamp,

@@ -12,7 +12,7 @@ const Bootcamp = ({ boot }) => {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title">
-                            <Link to={`/bootcamp/${boot.id}`}>{boot.name}
+                            <Link target='_blank' to={`/bootcamp/${boot.id}`}>{boot.name} 
                                 <span className="float-right badge badge-success">{boot.averageRating}</span></Link>
                         </h5>
                         <span className="badge badge-dark mb-2">{boot.location.city ? boot.location.city : "City"},{boot.location.city ? boot.location.country : "Country"}</span>
