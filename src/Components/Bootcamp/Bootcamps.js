@@ -24,8 +24,8 @@ const Bootcamps = () => {
                     <div className="col-md-8 mt-5">
                         {(searchBootcamp === null && allBootcamps !== null) ? allBootcamps.map(bootcamp => {
                             return (<Bootcamp boot={bootcamp} key={bootcamp.id} />)
-                        }) : <Preload />}
-                        
+                        }) : null}
+
                         {
                             (searchBootcamp) ? searchBootcamp.map(bootcamp => {
                                 return (<Bootcamp boot={bootcamp} key={bootcamp.id} />)

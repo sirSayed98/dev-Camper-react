@@ -8,6 +8,7 @@ import bootcampContext from '../../context/bootcamp/bootcampContext'
 import { Link } from "react-router-dom"
 import AuthContext from '../../context/auth/authContext'
 import ReviewContext from '../../context/review/reviewContext'
+import { BASE_URL } from '../../context/types'
 const singleBootcamp = ({ match }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const BootcampContext = useContext(bootcampContext);
@@ -80,7 +81,7 @@ const singleBootcamp = ({ match }) => {
                     </div>
 
                     <div className="col-md-4 mt-5">
-                        <img style={{ with: "200px", height: "200px" }} src={bootcamps ? `http://localhost:5000/uploads/${bootcamps.data.photo}` : 'http://localhost:5000/uploads/no-photo.jpg'} className="card-img" alt="..." />
+                        <img style={{ with: "200px", height: "200px" }} src={bootcamps ? `${BASE_URL}/uploads/${bootcamps.data.photo}` : `${BASE_URL}/uploads/no-photo.jpg`} className="card-img" alt="..." />
                         <h1 className="text-center my-4"><span className="badge badge-secondary badge-success rounded-circle p-3">{(bootcamps !== null) ? bootcamps.data.averageRating : "not Rated yet"}</span> Rating</h1>
                         <Link to={`/bootcamp/${match.params.bootcampId}/reviews`} className="btn btn-dark btn-block my-3"><i className="fas fa-comments"></i>  Read Reviews</Link>
                         {user && user.data.role === 'user' && ReviewButton ? <Link to={`/add-Review/${match.params.bootcampId}`} className="btn btn-light btn-block my-3"><i className="fas fa-pencil-alt"></i>  Write a Review</Link>

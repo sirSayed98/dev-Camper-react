@@ -9,7 +9,8 @@ import {
     RESET,
     EDIT_COURSE,
     GET_COURSE,
-    DELETE_COURSE
+    DELETE_COURSE,
+    BASE_URL
 } from '../types';
 
 
@@ -32,7 +33,7 @@ const CourseState = props => {
             }
         }
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/bootcamps/${bootcampID}/courses`, formData, config);
+            const res = await axios.post(`${BASE_URL}/api/v1/bootcamps/${bootcampID}/courses`, formData, config);
             dispatch({
                 type: CREATE_COURSE,
                 payload: res.data
@@ -49,7 +50,7 @@ const CourseState = props => {
 
     const editCourse = async (formData, courseID) => {
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/courses/${courseID}`, formData);
+            const res = await axios.put(`${BASE_URL}/api/v1/courses/${courseID}`, formData);
             dispatch({
                 type: EDIT_COURSE,
                 payload: res.data
@@ -62,7 +63,7 @@ const CourseState = props => {
     const getCourse = async (courseID) => {
 
         try {
-            const res = await axios.get(`http://localhost:5000/api/v1/courses/${courseID}`);
+            const res = await axios.get(`${BASE_URL}/api/v1/courses/${courseID}`);
             dispatch({
                 type: GET_COURSE,
                 payload: res.data
@@ -73,7 +74,7 @@ const CourseState = props => {
     }
     const deleteCourse = async (courseID) => {
         try {
-             await axios.delete(`http://localhost:5000/api/v1/courses/${courseID}`);
+             await axios.delete(`${BASE_URL}/api/v1/courses/${courseID}`);
             dispatch({
                 type: DELETE_COURSE,
                 payload: courseID

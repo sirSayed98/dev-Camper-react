@@ -7,7 +7,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import AuthContext from '../../context/auth/authContext'
 import withReactContent from 'sweetalert2-react-content'
-
+import { BASE_URL } from '../../context/types'
 const manageBootcamp = (props) => {
     const BootcampContext = useContext(bootcampContext);
     const authContext = useContext(AuthContext);
@@ -29,7 +29,7 @@ const manageBootcamp = (props) => {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/bootcamps/${bootcamps.data._id}/photo`, formData, {
+            const res = await axios.put(`${BASE_URL}/api/v1/bootcamps/${bootcamps.data._id}/photo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -89,7 +89,7 @@ const manageBootcamp = (props) => {
                             <div className="card mb-3">
                                 <div className="row no-gutters">
                                     <div className="col-md-4">
-                                        <img src={bootcamps === null ? `http://localhost:5000/uploads/no-photo.jpg` : `http://localhost:5000/uploads/${bootcamps.data.photo}`} className="card-img" alt="..." />
+                                        <img src={bootcamps === null ? `${BASE_URL}/uploads/no-photo.jpg` : `${BASE_URL}/uploads/${bootcamps.data.photo}`} className="card-img" alt="..." />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">

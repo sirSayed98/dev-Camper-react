@@ -16,7 +16,8 @@ import {
     RESET,
     UPDATE_PASSWORD,
     FAIL_UPDATE_PASSWORD,
-    FORGET_PASSWORD
+    FORGET_PASSWORD,
+    BASE_URL
 } from '../types';
 
 
@@ -41,7 +42,7 @@ const AuthState = props => {
             }
         }
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/auth/register", formData, config);
+            const res = await axios.post(`${BASE_URL}/api/v1/auth/register`, formData, config);
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: res.data
@@ -62,7 +63,7 @@ const AuthState = props => {
             setAuthToken(localStorage.token);
         }
         try {
-            const res = await axios.get('http://localhost:5000/api/v1/auth/me');
+            const res = await axios.get(`${BASE_URL}/api/v1/auth/me`);
             dispatch({
                 type: USER_LOADED,
                 payload: res.data
@@ -82,7 +83,7 @@ const AuthState = props => {
             }
         }
         try {
-            const res = await axios.post("http://localhost:5000/api/v1/auth/login", formData, config)
+            const res = await axios.post(`${BASE_URL}/api/v1/auth/login`, formData, config)
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
@@ -98,7 +99,7 @@ const AuthState = props => {
 
     const editUser = async (formData) => {
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/auth/updatedetails`, formData);
+            const res = await axios.put(`${BASE_URL}/api/v1/auth/updatedetails`, formData);
             dispatch({
                 type: EDIT_USER,
                 payload: res.data
@@ -114,7 +115,7 @@ const AuthState = props => {
     }
     const UpdatePassword = async (formData) => {
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/auth/updatepassword`,formData);
+            const res = await axios.put(`${BASE_URL}/api/v1/auth/updatepassword`,formData);
             dispatch({
                 type: UPDATE_PASSWORD,
                 payload: res.data
@@ -129,7 +130,7 @@ const AuthState = props => {
     }
     const ForgetPassword = async (formData)=>{
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/auth/forgotpassword`,formData);
+            const res = await axios.post(`${BASE_URL}/api/v1/auth/forgotpassword`,formData);
             dispatch({
                 type: FORGET_PASSWORD,
                 payload: res.data.data

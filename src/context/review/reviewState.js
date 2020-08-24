@@ -10,7 +10,8 @@ import {
     DELETE_REVIEW,
     RESET,
     EDIT_REVIEW,
-    GET_SINGLE_REVIEW
+    GET_SINGLE_REVIEW,
+    BASE_URL
 } from '../types';
 
 
@@ -33,7 +34,7 @@ const ReviewState = props => {
             }
         }
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/bootcamps/${bootcampID}/reviews`, formData, config);
+            const res = await axios.post(`${BASE_URL}/api/v1/bootcamps/${bootcampID}/reviews`, formData, config);
             dispatch({
                 type: ADD_REVIEW,
                 payload: res.data
@@ -45,7 +46,7 @@ const ReviewState = props => {
 
     const getUserReviews = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/v1/reviews/myreviews`);
+            const res = await axios.get(`${BASE_URL}/api/v1/reviews/myreviews`);
             dispatch({
                 type: USER_REVIEWS,
                 payload: Object.values(res.data.data)
@@ -57,7 +58,7 @@ const ReviewState = props => {
 
     const deleteReview = async (reviewID) => {
         try {
-            await axios.delete(`http://localhost:5000/api/v1/reviews/${reviewID}`);
+            await axios.delete(`${BASE_URL}/api/v1/reviews/${reviewID}`);
             dispatch({
                 type: DELETE_REVIEW,
                 payload: reviewID
@@ -73,7 +74,7 @@ const ReviewState = props => {
     }
     const getSingleReview = async (reviewID) => {
         try {
-           const res = await axios.get(`http://localhost:5000/api/v1/reviews/${reviewID}`);
+           const res = await axios.get(`${BASE_URL}/api/v1/reviews/${reviewID}`);
             dispatch({
                 type: GET_SINGLE_REVIEW,
                 payload: res.data.data
@@ -84,7 +85,7 @@ const ReviewState = props => {
     }
     const EditReview =async(formData,reviewID)=>{
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/reviews/${reviewID}`,formData);
+            const res = await axios.put(`${BASE_URL}/api/v1/reviews/${reviewID}`,formData);
              dispatch({
                  type: EDIT_REVIEW,
                  payload: res.data
