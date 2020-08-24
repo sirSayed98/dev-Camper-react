@@ -24,7 +24,7 @@ const Filter = () => {
             <div className="form-group">
                 <label> Rating</label>
                 <select onChange={onChange} className="custom-select mb-2" name="rate">
-                    <option value="any" selected>Any</option>
+                    <option value="0" selected>Any</option>
                     <option value="9">9+</option>
                     <option value="8">8+</option>
                     <option value="7">7+</option>
@@ -38,7 +38,7 @@ const Filter = () => {
             <div className="form-group">
                 <label> Budget</label>
                 <select onChange={onChange} className="custom-select mb-2" name="cost">
-                    <option value="any" selected>Any</option>
+                    <option value="0" selected>Any</option>
                     <option value="3000">$3000</option>
                     <option value="2000">$2000</option>
                     <option value="1500">$1500</option>

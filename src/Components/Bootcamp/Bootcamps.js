@@ -8,7 +8,7 @@ import bootcampContext from '../../context/bootcamp/bootcampContext'
 
 const Bootcamps = () => {
     const BootcampContext = useContext(bootcampContext);
-    const { allBootcamps, getALLBootcamps } = BootcampContext;
+    const { allBootcamps, getALLBootcamps, searchBootcamp } = BootcampContext;
 
     useEffect(() => {
         getALLBootcamps();
@@ -24,11 +24,13 @@ const Bootcamps = () => {
                     </div>
                     <div className="col-md-8 mt-5">
                         {
-                            (allBootcamps) ? allBootcamps.map(bootcamp => {
+                            (searchBootcamp) ? searchBootcamp.map(bootcamp => {
                                 return (<Bootcamp boot={bootcamp} key={bootcamp.id} />)
-                            }) : <h1 className="text-center"> No Bootcamps Existed</h1>
+                            }) : null
                         }
-
+                        {(searchBootcamp === null && allBootcamps !== null) ? allBootcamps.map(bootcamp => {
+                            return (<Bootcamp boot={bootcamp} key={bootcamp.id} />)
+                        }) : null}
                     </div>
                 </div>
             </div>
