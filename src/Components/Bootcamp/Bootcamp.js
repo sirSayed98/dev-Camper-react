@@ -7,7 +7,7 @@ const Bootcamp = ({ boot }) => {
         <div className="card mb-3">
             <div className="row no-gutters">
                 <div className="col-md-4">
-                    <img style={{ width: "250px", height: "180px" }} src={`./uploads/${boot.photo}`} className="card-img" alt="..." />
+                    <img style={{ width: "250px", height: "180px" }} src={`http://localhost:5000/uploads/${boot.photo}`} className="card-img" alt="..." />
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">

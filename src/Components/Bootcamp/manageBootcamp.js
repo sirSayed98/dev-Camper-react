@@ -89,7 +89,7 @@ const manageBootcamp = (props) => {
                             <div className="card mb-3">
                                 <div className="row no-gutters">
                                     <div className="col-md-4">
-                                        <img src={bootcamps === null ? `./uploads/no-photo.jpg` : `./uploads/${bootcamps.data.photo}`} className="card-img" alt="..." />
+                                        <img src={bootcamps === null ? `http://localhost:5000/uploads/no-photo.jpg` : `http://localhost:5000/uploads/${bootcamps.data.photo}`} className="card-img" alt="..." />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
@@ -122,7 +122,7 @@ const manageBootcamp = (props) => {
                                 </div>
                                 <input type="submit" className="btn btn-light btn-block" value="Upload Image" />
                             </form>
-                            <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link>
+                            {/* <Link to="/edit-bootcamp" className="btn btn-primary btn-block">Edit Bootcamp Details</Link> */}
                             <Link to="/manage-courses"
                                 className="btn btn-secondary btn-block">Manage Courses</Link>
                             <Link to="/add-course" className="btn btn-secondary btn-block">Add Course</Link>
