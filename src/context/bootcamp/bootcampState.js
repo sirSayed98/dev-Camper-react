@@ -23,7 +23,8 @@ const BootCampState = props => {
         bootcamps: null,
         allBootcamps: [],
         bootcamp_reviews: null,
-        searchBootcamp: null
+        searchBootcamp: null,
+        bootCamp:null
     };
     const [state, dispatch] = useReducer(bootcampReducer, initialState);
 
@@ -71,14 +72,15 @@ const BootCampState = props => {
     }
     const fetchBootcamp = async (id) => {
         try {
-
             const res = await axios.get(`${BASE_URL}/api/v1/bootcamps/${id}`);
+            console.log(res.data.data)
             dispatch({
                 type: LOAD_BOOTCAMP,
                 payload: res.data
             });
         } catch (error) {
-            console.log(error.response.data)
+            alert('not here')
+            console.log(error)
         }
     }
     const getBootcampReviews = async (id) => {
@@ -138,6 +140,7 @@ const BootCampState = props => {
                 allBootcamps: state.allBootcamps,
                 bootcamp_reviews: state.bootcamp_reviews,
                 searchBootcamp: state.searchBootcamp,
+                bootCamp:state.bootCamp,
                 FilterLocation,
                 Create,
                 loadBootcamp,
